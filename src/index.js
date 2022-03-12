@@ -5,6 +5,234 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 
+const full_pm = [
+  {
+    "num": 738,
+    "name": "Vikavolt",
+    "type1": "Bug",
+    "type2": "Electric",
+    "base_spe": 43
+  },
+  {
+    "num": 277,
+    "name": "Swellow",
+    "type1": "Normal",
+    "type2": "Flying",
+    "base_spe": 125
+  },
+  {
+    "num": 16,
+    "name": "Pidgey",
+    "type1": "Normal",
+    "type2": "Flying",
+    "base_spe": 56
+  },
+  {
+    "num": 292,
+    "name": "Shedinja",
+    "type1": "Bug",
+    "type2": "Ghost",
+    "base_spe": 40
+  },
+  {
+    "num": 658,
+    "name": "Greninja",
+    "type1": "Water",
+    "type2": "Dark",
+    "base_spe": 122
+  },
+  {
+    "num": 706,
+    "name": "Goodra-Hisui",
+    "type1": "Steel",
+    "type2": "Dragon",
+    "base_spe": 60
+  },
+  {
+    "num": 711,
+    "name": "Gourgeist-Large",
+    "type1": "Ghost",
+    "type2": "Grass",
+    "base_spe": 69
+  },
+  {
+    "num": 288,
+    "name": "Vigoroth",
+    "type1": "Normal",
+    "type2": null,
+    "base_spe": 90
+  },
+  {
+    "num": 319,
+    "name": "Sharpedo",
+    "type1": "Water",
+    "type2": "Dark",
+    "base_spe": 95
+  },
+  {
+    "num": 617,
+    "name": "Accelgor",
+    "type1": "Bug",
+    "type2": null,
+    "base_spe": 145
+  },
+  {
+    "num": 305,
+    "name": "Lairon",
+    "type1": "Steel",
+    "type2": "Rock",
+    "base_spe": 40
+  },
+  {
+    "num": 368,
+    "name": "Gorebyss",
+    "type1": "Water",
+    "type2": null,
+    "base_spe": 52
+  },
+  {
+    "num": 743,
+    "name": "Ribombee",
+    "type1": "Bug",
+    "type2": "Fairy",
+    "base_spe": 124
+  },
+  {
+    "num": 60,
+    "name": "Poliwag",
+    "type1": "Water",
+    "type2": null,
+    "base_spe": 90
+  },
+  {
+    "num": 265,
+    "name": "Wurmple",
+    "type1": "Bug",
+    "type2": null,
+    "base_spe": 20
+  },
+  {
+    "num": 583,
+    "name": "Vanillish",
+    "type1": "Ice",
+    "type2": null,
+    "base_spe": 59
+  },
+  {
+    "num": 84,
+    "name": "Doduo",
+    "type1": "Normal",
+    "type2": "Flying",
+    "base_spe": 75
+  },
+  {
+    "num": 839,
+    "name": "Coalossal",
+    "type1": "Rock",
+    "type2": "Fire",
+    "base_spe": 30
+  },
+  {
+    "num": 120,
+    "name": "Staryu",
+    "type1": "Water",
+    "type2": null,
+    "base_spe": 85
+  },
+  {
+    "num": 479,
+    "name": "Rotom-Heat",
+    "type1": "Electric",
+    "type2": "Fire",
+    "base_spe": 86
+  },
+  {
+    "num": 395,
+    "name": "Empoleon",
+    "type1": "Water",
+    "type2": "Steel",
+    "base_spe": 60
+  },
+  {
+    "num": 185,
+    "name": "Sudowoodo",
+    "type1": "Rock",
+    "type2": null,
+    "base_spe": 30
+  },
+  {
+    "num": 841,
+    "name": "Flapple",
+    "type1": "Grass",
+    "type2": "Dragon",
+    "base_spe": 70
+  },
+  {
+    "num": 74,
+    "name": "Geodude-Alola",
+    "type1": "Rock",
+    "type2": "Electric",
+    "base_spe": 20
+  },
+  {
+    "num": 636,
+    "name": "Larvesta",
+    "type1": "Bug",
+    "type2": "Fire",
+    "base_spe": 60
+  },
+  {
+    "num": 856,
+    "name": "Hatenna",
+    "type1": "Psychic",
+    "type2": null,
+    "base_spe": 39
+  },
+  {
+    "num": 845,
+    "name": "Cramorant",
+    "type1": "Flying",
+    "type2": "Water",
+    "base_spe": 85
+  },
+  {
+    "num": 745,
+    "name": "Lycanroc-Midnight",
+    "type1": "Rock",
+    "type2": null,
+    "base_spe": 82
+  },
+  {
+    "num": 311,
+    "name": "Plusle",
+    "type1": "Electric",
+    "type2": null,
+    "base_spe": 95
+  },
+  {
+    "num": 163,
+    "name": "Hoothoot",
+    "type1": "Normal",
+    "type2": "Flying",
+    "base_spe": 50
+  },
+  {
+    "num": 718,
+    "name": "Zygarde",
+    "type1": "Dragon",
+    "type2": "Ground",
+    "base_spe": 95
+  },
+  {
+    "num": 258,
+    "name": "Mudkip",
+    "type1": "Water",
+    "type2": null,
+    "base_spe": 40
+  }
+];
+  
+
 function FreeSolo() {
   return (
     <Stack spacing={2} sx={{ width: 300 }}>
@@ -12,7 +240,7 @@ function FreeSolo() {
         freeSolo
         id="free-solo-2-demo"
         disableClearable
-        options={top100Films.map((option) => option.title)}
+        options={full_pm.map((option) => option.name)}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -28,27 +256,13 @@ function FreeSolo() {
   );
 }
 
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const top100Films = [
-  { title: 'The Shawshank Redemption', year: 1994 },
-  { title: 'The Godfather', year: 1972 },
-  { title: 'The Godfather: Part II', year: 1974 },
-];
-
-
 var vc_clear_all = vega.changeset().remove(function(t) {console.log(t);return true});
 var vc_pick_random = vega.changeset().insert([{
   "num": 902,
   "name": "Basculegion-F",
   "type1": "Water",
   "type2": "Ghost",
-  "base_spe": 78,
-  "stats_nnzero": 74,
-  "stats_nniv": 88,
-  "stats_noev": 98,
-  "stats_evmax": 130,
-  "stats_npnoev": 108,
-  "stats_nmax": 143
+  "base_spe": 78
 }]);
 
 function Example() {
@@ -56,38 +270,32 @@ function Example() {
   const [count, setCount] = React.useState(0);
   return (
     <div>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>
-        Click me
-      </button>
-      <button onClick={()=>v1.then((res)=>{res.view.change('filtered_pms', vc_clear_all).run()} )}>Clear</button>
       <button onClick={()=>v1.then((res)=>{res.view.change('filtered_pms', vc_pick_random).run()} )}>Insert</button>
     </div>
   );
 }
 
-
-function SearchPM() {
-  const [keyword, setKeyWord] = React.useState("")
-  return (
-    <div>
-      <input></input>
-      <p></p>
-    </div>
-  )
-}
-
 function DisplayList() {
   const [dList, setDList] = React.useState([]);
+  const handleRemoveItem = (e) => {
+    console.log(e);
+    const name = e.target.getAttribute("name");
+    setDList(dList.filter(i => i !== name));
+   };
+
   return (
     <div>
-      <SearchPM/>  
-      <button onClick={()=> {setDList(dList=>[...dList, "cc"]);}}>Insert</button>
+      <button onClick={()=> {var vadd=document.getElementById('free-solo-2-demo').value; setDList(dList=>[...dList, vadd]);}}>Add</button>
       <ul>
-        {dList.map( e =>
-          <li>{ e }</li>
+        {dList.map( (e,i) =>
+          <li key={i}>{ e } 
+            <button name={e} onClick={handleRemoveItem}>x</button>
+          </li>
         )}
       </ul>
+      <button onClick={()=> {}}>Update</button>
+      <br/>
+      <button onClick={()=>v1.then((res)=>{res.view.change('filtered_pms', vc_clear_all).run()} )}>Clear All</button>
     </div>
   )
 }
@@ -110,271 +318,20 @@ ReactDOM.render(
 );
 
 
-const full_pm = [
-  {
-    "num": 265,
-    "name": "Wurmple",
-    "type1": "Bug",
-    "type2": null,
-    "base_spe": 20,
-    "stats_nnzero": 22,
-    "stats_nniv": 36,
-    "stats_noev": 40,
-    "stats_evmax": 72,
-    "stats_npnoev": 44,
-    "stats_nmax": 79
-  },
-  {
-    "num": 37,
-    "name": "Vulpix-Alola",
-    "type1": "Ice",
-    "type2": null,
-    "base_spe": 65,
-    "stats_nnzero": 63,
-    "stats_nniv": 76,
-    "stats_noev": 85,
-    "stats_evmax": 117,
-    "stats_npnoev": 94,
-    "stats_nmax": 128
-  },
-  {
-    "num": 762,
-    "name": "Steenee",
-    "type1": "Grass",
-    "type2": null,
-    "base_spe": 62,
-    "stats_nnzero": 60,
-    "stats_nniv": 74,
-    "stats_noev": 82,
-    "stats_evmax": 114,
-    "stats_npnoev": 90,
-    "stats_nmax": 125
-  },
-  {
-    "num": 807,
-    "name": "Zeraora",
-    "type1": "Electric",
-    "type2": null,
-    "base_spe": 143,
-    "stats_nnzero": 133,
-    "stats_nniv": 147,
-    "stats_noev": 163,
-    "stats_evmax": 195,
-    "stats_npnoev": 179,
-    "stats_nmax": 214
-  },
-  {
-    "num": 590,
-    "name": "Foongus",
-    "type1": "Grass",
-    "type2": "Poison",
-    "base_spe": 15,
-    "stats_nnzero": 18,
-    "stats_nniv": 31,
-    "stats_noev": 35,
-    "stats_evmax": 67,
-    "stats_npnoev": 39,
-    "stats_nmax": 73
-  },
-  {
-    "num": 641,
-    "name": "Tornadus",
-    "type1": "Flying",
-    "type2": null,
-    "base_spe": 111,
-    "stats_nnzero": 104,
-    "stats_nniv": 118,
-    "stats_noev": 131,
-    "stats_evmax": 163,
-    "stats_npnoev": 144,
-    "stats_nmax": 179
-  },
-  {
-    "num": 580,
-    "name": "Ducklett",
-    "type1": "Water",
-    "type2": "Flying",
-    "base_spe": 55,
-    "stats_nnzero": 54,
-    "stats_nniv": 67,
-    "stats_noev": 75,
-    "stats_evmax": 107,
-    "stats_npnoev": 83,
-    "stats_nmax": 117
-  },
-  {
-    "num": 751,
-    "name": "Dewpider",
-    "type1": "Water",
-    "type2": "Bug",
-    "base_spe": 27,
-    "stats_nnzero": 28,
-    "stats_nniv": 42,
-    "stats_noev": 47,
-    "stats_evmax": 79,
-    "stats_npnoev": 52,
-    "stats_nmax": 86
-  },
-  {
-    "num": 210,
-    "name": "Granbull",
-    "type1": "Fairy",
-    "type2": null,
-    "base_spe": 45,
-    "stats_nnzero": 45,
-    "stats_nniv": 58,
-    "stats_noev": 65,
-    "stats_evmax": 97,
-    "stats_npnoev": 72,
-    "stats_nmax": 106
-  },
-  {
-    "num": 74,
-    "name": "Geodude-Alola",
-    "type1": "Rock",
-    "type2": "Electric",
-    "base_spe": 20,
-    "stats_nnzero": 22,
-    "stats_nniv": 36,
-    "stats_noev": 40,
-    "stats_evmax": 72,
-    "stats_npnoev": 44,
-    "stats_nmax": 79
-  },
-  {
-    "num": 713,
-    "name": "Avalugg-Hisui",
-    "type1": "Ice",
-    "type2": "Rock",
-    "base_spe": 38,
-    "stats_nnzero": 38,
-    "stats_nniv": 52,
-    "stats_noev": 58,
-    "stats_evmax": 90,
-    "stats_npnoev": 64,
-    "stats_nmax": 99
-  },
-  {
-    "num": 656,
-    "name": "Froakie",
-    "type1": "Water",
-    "type2": null,
-    "base_spe": 71,
-    "stats_nnzero": 68,
-    "stats_nniv": 82,
-    "stats_noev": 91,
-    "stats_evmax": 123,
-    "stats_npnoev": 100,
-    "stats_nmax": 135
-  },
-  {
-    "num": 89,
-    "name": "Muk-Alola",
-    "type1": "Poison",
-    "type2": "Dark",
-    "base_spe": 50,
-    "stats_nnzero": 49,
-    "stats_nniv": 63,
-    "stats_noev": 70,
-    "stats_evmax": 102,
-    "stats_npnoev": 77,
-    "stats_nmax": 112
-  },
-  {
-    "num": 276,
-    "name": "Taillow",
-    "type1": "Normal",
-    "type2": "Flying",
-    "base_spe": 85,
-    "stats_nnzero": 81,
-    "stats_nniv": 94,
-    "stats_noev": 105,
-    "stats_evmax": 137,
-    "stats_npnoev": 116,
-    "stats_nmax": 150
-  },
-  {
-    "num": 648,
-    "name": "Meloetta",
-    "type1": "Normal",
-    "type2": "Psychic",
-    "base_spe": 90,
-    "stats_nnzero": 85,
-    "stats_nniv": 99,
-    "stats_noev": 110,
-    "stats_evmax": 142,
-    "stats_npnoev": 121,
-    "stats_nmax": 156
-  },
-  {
-    "num": 558,
-    "name": "Crustle",
-    "type1": "Bug",
-    "type2": "Rock",
-    "base_spe": 45,
-    "stats_nnzero": 45,
-    "stats_nniv": 58,
-    "stats_noev": 65,
-    "stats_evmax": 97,
-    "stats_npnoev": 72,
-    "stats_nmax": 106
-  },
-  {
-    "num": 726,
-    "name": "Torracat",
-    "type1": "Fire",
-    "type2": null,
-    "base_spe": 90,
-    "stats_nnzero": 85,
-    "stats_nniv": 99,
-    "stats_noev": 110,
-    "stats_evmax": 142,
-    "stats_npnoev": 121,
-    "stats_nmax": 156
-  },
-  {
-    "num": 104,
-    "name": "Cubone",
-    "type1": "Ground",
-    "type2": null,
-    "base_spe": 35,
-    "stats_nnzero": 36,
-    "stats_nniv": 49,
-    "stats_noev": 55,
-    "stats_evmax": 87,
-    "stats_npnoev": 61,
-    "stats_nmax": 95
-  },
-  {
-    "num": 278,
-    "name": "Wingull",
-    "type1": "Water",
-    "type2": "Flying",
-    "base_spe": 85,
-    "stats_nnzero": 81,
-    "stats_nniv": 94,
-    "stats_noev": 105,
-    "stats_evmax": 137,
-    "stats_npnoev": 116,
-    "stats_nmax": 150
-  },
-  {
-    "num": 902,
-    "name": "Basculegion-F",
-    "type1": "Water",
-    "type2": "Ghost",
-    "base_spe": 78,
-    "stats_nnzero": 74,
-    "stats_nniv": 88,
-    "stats_noev": 98,
-    "stats_evmax": 130,
-    "stats_npnoev": 108,
-    "stats_nmax": 143
-  }
-];
-
 const spec = {
 "config": {"view": {"continuousWidth": 800, "continuousHeight": 400}},
+"transform": [
+  {"calculate": "parseInt(((datum.base_spe*2+0+0/4)*1/2+5)*0.9)", "as": "stats_nnzero"},
+  {"calculate": "parseInt(((datum.base_spe*2+31+0/4)*1/2+5)*0.9)", "as": "stats_nniv"},
+  {"calculate": "parseInt(((datum.base_spe*2+31+0/4)*1/2+5))", "as": "stats_noev"},
+  {"calculate": "parseInt(((datum.base_spe*2+31+252/4)*1/2+5))", "as": "stats_evmax"},
+  {"calculate": "parseInt(((datum.base_spe*2+31+0/4)*1/2+5)*1.1)", "as": "stats_npnoev"},
+  {"calculate": "parseInt(((datum.base_spe*2+31+252/4)*1/2+5)*1.1)", "as": "stats_nmax"},
+  {"calculate": "parseInt(datum.stats_nmax*1.5)", "as": "u1"},
+  {"calculate": "parseInt(datum.stats_nmax*2)", "as": "u2"},
+  {"calculate": "parseInt(datum.stats_noev*2/3)", "as": "d1"},
+  {"calculate": "parseInt(datum.stats_noev/2)", "as": "d2"}
+ ],
 "vconcat": [
 {
   "encoding": {
@@ -387,6 +344,8 @@ const spec = {
     "tooltip": [
       {"title": "NAME", "field": "name"},
       {"title": "BASE", "field": "base_spe"},
+      {"title": "+2", "field": "u2"},
+      {"title": "+1", "field": "u1"},
       {"title": "max", "field": "stats_nmax"},
       {"title": "252ev", "field": "stats_evmax"},
       {"title": "+nature", "field": "stats_npnoev"},
@@ -430,6 +389,13 @@ const spec = {
       "encoding": {
         "color": {"value": "#40ff40"},
         "y": {"field": "stats_npnoev", "type": "quantitative"}
+      }
+    },
+   
+    {
+      "mark": {"type":"point", "shape":"triangle-up","strokeWidth":1.5, "size":50}, 
+      "encoding": {
+        "y": {"field": "u1", "type": "quantitative"}
       }
     },
     {
