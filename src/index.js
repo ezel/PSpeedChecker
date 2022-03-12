@@ -121,7 +121,7 @@ function InitVega(pm_list) {
     {"calculate": "parseInt(datum.stats_nmax*1.5)", "as": "u1"},
     {"calculate": "parseInt(datum.stats_nmax*2)", "as": "u2"},
     {"calculate": "parseInt(datum.stats_noev*2/3)", "as": "d1"},
-    {"calculate": "parseInt(datum.stats_noev/2)", "as": "d2"}
+    {"calculate": "parseInt(datum.stats_noev/2)", "as": "d2"},
   ],
   "vconcat": [
   {
@@ -219,29 +219,8 @@ function InitVega(pm_list) {
         "encoding": {
           "color": {
             "field": "type1",
-            "scale": {
-              "range": [
-                "#91C02E",
-                "#5A5365",
-                "#0A6DC2",
-                "#F4D23C",
-                "#EB8FE6",
-                "#CD406A",
-                "#FE9C54",
-                "#8EA8DE",
-                "#62BB5A",
-                "#62BB5A",
-                "#D87844",
-                "#73CEBF",
-                "#9199A1",
-                "#44685E",
-                "#A96AC8",
-                "#F97178",
-                "#C5B78B",
-                "#5A8DA1",
-                "#4F90D5"
-              ]
-            }
+            "legend": {"title": "Type"},
+            "scale": {"domain": ["Bug", "Dark", "Dragon", "Electric", "Fairy", "Fighting", "Fire", "Fly", "Ghost", "Grass", "Ground", "Ice", "Normal", "Other", "Poison", "Psychic", "Rock", "Steel", "Water"], "range": ["#91C02E", "#5A5365", "#0A6DC2", "#F4D23C", "#EB8FE6", "#CD406A", "#FE9C54", "#8EA8DE", "#5269AC", "#62BB5A", "#D87844", "#73CEBF", "#9199A1", "#44685E", "#A96AC8", "#F97178", "#C5B78B", "#5A8DA1", "#4F90D5"]}
           },
           "y": {"value": 0},
           "y2": {"value": 20}
