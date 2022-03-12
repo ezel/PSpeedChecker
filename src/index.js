@@ -1,479 +1,271 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import embed, { vega } from 'vega-embed';
 import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 
-const full_pm = [
-  {
-    "num": 738,
-    "name": "Vikavolt",
-    "type1": "Bug",
-    "type2": "Electric",
-    "base_spe": 43
-  },
-  {
-    "num": 277,
-    "name": "Swellow",
-    "type1": "Normal",
-    "type2": "Flying",
-    "base_spe": 125
-  },
-  {
-    "num": 16,
-    "name": "Pidgey",
-    "type1": "Normal",
-    "type2": "Flying",
-    "base_spe": 56
-  },
-  {
-    "num": 292,
-    "name": "Shedinja",
-    "type1": "Bug",
-    "type2": "Ghost",
-    "base_spe": 40
-  },
-  {
-    "num": 658,
-    "name": "Greninja",
-    "type1": "Water",
-    "type2": "Dark",
-    "base_spe": 122
-  },
-  {
-    "num": 706,
-    "name": "Goodra-Hisui",
-    "type1": "Steel",
-    "type2": "Dragon",
-    "base_spe": 60
-  },
-  {
-    "num": 711,
-    "name": "Gourgeist-Large",
-    "type1": "Ghost",
-    "type2": "Grass",
-    "base_spe": 69
-  },
-  {
-    "num": 288,
-    "name": "Vigoroth",
-    "type1": "Normal",
-    "type2": null,
-    "base_spe": 90
-  },
-  {
-    "num": 319,
-    "name": "Sharpedo",
-    "type1": "Water",
-    "type2": "Dark",
-    "base_spe": 95
-  },
-  {
-    "num": 617,
-    "name": "Accelgor",
-    "type1": "Bug",
-    "type2": null,
-    "base_spe": 145
-  },
-  {
-    "num": 305,
-    "name": "Lairon",
-    "type1": "Steel",
-    "type2": "Rock",
-    "base_spe": 40
-  },
-  {
-    "num": 368,
-    "name": "Gorebyss",
-    "type1": "Water",
-    "type2": null,
-    "base_spe": 52
-  },
-  {
-    "num": 743,
-    "name": "Ribombee",
-    "type1": "Bug",
-    "type2": "Fairy",
-    "base_spe": 124
-  },
-  {
-    "num": 60,
-    "name": "Poliwag",
-    "type1": "Water",
-    "type2": null,
-    "base_spe": 90
-  },
-  {
-    "num": 265,
-    "name": "Wurmple",
-    "type1": "Bug",
-    "type2": null,
-    "base_spe": 20
-  },
-  {
-    "num": 583,
-    "name": "Vanillish",
-    "type1": "Ice",
-    "type2": null,
-    "base_spe": 59
-  },
-  {
-    "num": 84,
-    "name": "Doduo",
-    "type1": "Normal",
-    "type2": "Flying",
-    "base_spe": 75
-  },
-  {
-    "num": 839,
-    "name": "Coalossal",
-    "type1": "Rock",
-    "type2": "Fire",
-    "base_spe": 30
-  },
-  {
-    "num": 120,
-    "name": "Staryu",
-    "type1": "Water",
-    "type2": null,
-    "base_spe": 85
-  },
-  {
-    "num": 479,
-    "name": "Rotom-Heat",
-    "type1": "Electric",
-    "type2": "Fire",
-    "base_spe": 86
-  },
-  {
-    "num": 395,
-    "name": "Empoleon",
-    "type1": "Water",
-    "type2": "Steel",
-    "base_spe": 60
-  },
-  {
-    "num": 185,
-    "name": "Sudowoodo",
-    "type1": "Rock",
-    "type2": null,
-    "base_spe": 30
-  },
-  {
-    "num": 841,
-    "name": "Flapple",
-    "type1": "Grass",
-    "type2": "Dragon",
-    "base_spe": 70
-  },
-  {
-    "num": 74,
-    "name": "Geodude-Alola",
-    "type1": "Rock",
-    "type2": "Electric",
-    "base_spe": 20
-  },
-  {
-    "num": 636,
-    "name": "Larvesta",
-    "type1": "Bug",
-    "type2": "Fire",
-    "base_spe": 60
-  },
-  {
-    "num": 856,
-    "name": "Hatenna",
-    "type1": "Psychic",
-    "type2": null,
-    "base_spe": 39
-  },
-  {
-    "num": 845,
-    "name": "Cramorant",
-    "type1": "Flying",
-    "type2": "Water",
-    "base_spe": 85
-  },
-  {
-    "num": 745,
-    "name": "Lycanroc-Midnight",
-    "type1": "Rock",
-    "type2": null,
-    "base_spe": 82
-  },
-  {
-    "num": 311,
-    "name": "Plusle",
-    "type1": "Electric",
-    "type2": null,
-    "base_spe": 95
-  },
-  {
-    "num": 163,
-    "name": "Hoothoot",
-    "type1": "Normal",
-    "type2": "Flying",
-    "base_spe": 50
-  },
-  {
-    "num": 718,
-    "name": "Zygarde",
-    "type1": "Dragon",
-    "type2": "Ground",
-    "base_spe": 95
-  },
-  {
-    "num": 258,
-    "name": "Mudkip",
-    "type1": "Water",
-    "type2": null,
-    "base_spe": 40
+const full_pm = [{"num":1,"name":"Bulbasaur","type1":"Grass","type2":"Poison","base_spe":45},{"num":2,"name":"Ivysaur","type1":"Grass","type2":"Poison","base_spe":60},{"num":3,"name":"Venusaur","type1":"Grass","type2":"Poison","base_spe":80},{"num":4,"name":"Charmander","type1":"Fire","type2":null,"base_spe":65},{"num":5,"name":"Charmeleon","type1":"Fire","type2":null,"base_spe":80},{"num":6,"name":"Charizard","type1":"Fire","type2":"Flying","base_spe":100},{"num":7,"name":"Squirtle","type1":"Water","type2":null,"base_spe":43},{"num":8,"name":"Wartortle","type1":"Water","type2":null,"base_spe":58},{"num":9,"name":"Blastoise","type1":"Water","type2":null,"base_spe":78},{"num":10,"name":"Caterpie","type1":"Bug","type2":null,"base_spe":45},{"num":11,"name":"Metapod","type1":"Bug","type2":null,"base_spe":30},{"num":12,"name":"Butterfree","type1":"Bug","type2":"Flying","base_spe":70},{"num":13,"name":"Weedle","type1":"Bug","type2":"Poison","base_spe":50},{"num":14,"name":"Kakuna","type1":"Bug","type2":"Poison","base_spe":35},{"num":15,"name":"Beedrill","type1":"Bug","type2":"Poison","base_spe":75},{"num":16,"name":"Pidgey","type1":"Normal","type2":"Flying","base_spe":56},{"num":17,"name":"Pidgeotto","type1":"Normal","type2":"Flying","base_spe":71},{"num":18,"name":"Pidgeot","type1":"Normal","type2":"Flying","base_spe":101},{"num":19,"name":"Rattata","type1":"Normal","type2":null,"base_spe":72},{"num":19,"name":"Rattata-Alola","type1":"Dark","type2":"Normal","base_spe":72},{"num":20,"name":"Raticate","type1":"Normal","type2":null,"base_spe":97},{"num":20,"name":"Raticate-Alola","type1":"Dark","type2":"Normal","base_spe":77},{"num":21,"name":"Spearow","type1":"Normal","type2":"Flying","base_spe":70},{"num":22,"name":"Fearow","type1":"Normal","type2":"Flying","base_spe":100},{"num":23,"name":"Ekans","type1":"Poison","type2":null,"base_spe":55},{"num":24,"name":"Arbok","type1":"Poison","type2":null,"base_spe":80},{"num":25,"name":"Pikachu","type1":"Electric","type2":null,"base_spe":90},{"num":25,"name":"Pikachu-Starter","type1":"Electric","type2":null,"base_spe":120},{"num":26,"name":"Raichu","type1":"Electric","type2":null,"base_spe":110},{"num":26,"name":"Raichu-Alola","type1":"Electric","type2":"Psychic","base_spe":110},{"num":27,"name":"Sandshrew","type1":"Ground","type2":null,"base_spe":40},{"num":27,"name":"Sandshrew-Alola","type1":"Ice","type2":"Steel","base_spe":40},{"num":28,"name":"Sandslash","type1":"Ground","type2":null,"base_spe":65},{"num":28,"name":"Sandslash-Alola","type1":"Ice","type2":"Steel","base_spe":65},{"num":29,"name":"Nidoran-F","type1":"Poison","type2":null,"base_spe":41},{"num":30,"name":"Nidorina","type1":"Poison","type2":null,"base_spe":56},{"num":31,"name":"Nidoqueen","type1":"Poison","type2":"Ground","base_spe":76},{"num":32,"name":"Nidoran-M","type1":"Poison","type2":null,"base_spe":50},{"num":33,"name":"Nidorino","type1":"Poison","type2":null,"base_spe":65},{"num":34,"name":"Nidoking","type1":"Poison","type2":"Ground","base_spe":85},{"num":35,"name":"Clefairy","type1":"Fairy","type2":null,"base_spe":35},{"num":36,"name":"Clefable","type1":"Fairy","type2":null,"base_spe":60},{"num":37,"name":"Vulpix","type1":"Fire","type2":null,"base_spe":65},{"num":37,"name":"Vulpix-Alola","type1":"Ice","type2":null,"base_spe":65},{"num":38,"name":"Ninetales","type1":"Fire","type2":null,"base_spe":100},{"num":38,"name":"Ninetales-Alola","type1":"Ice","type2":"Fairy","base_spe":109},{"num":39,"name":"Jigglypuff","type1":"Normal","type2":"Fairy","base_spe":20},{"num":40,"name":"Wigglytuff","type1":"Normal","type2":"Fairy","base_spe":45},{"num":41,"name":"Zubat","type1":"Poison","type2":"Flying","base_spe":55},{"num":42,"name":"Golbat","type1":"Poison","type2":"Flying","base_spe":90},{"num":43,"name":"Oddish","type1":"Grass","type2":"Poison","base_spe":30},{"num":44,"name":"Gloom","type1":"Grass","type2":"Poison","base_spe":40},{"num":45,"name":"Vileplume","type1":"Grass","type2":"Poison","base_spe":50},{"num":46,"name":"Paras","type1":"Bug","type2":"Grass","base_spe":25},{"num":47,"name":"Parasect","type1":"Bug","type2":"Grass","base_spe":30},{"num":48,"name":"Venonat","type1":"Bug","type2":"Poison","base_spe":45},{"num":49,"name":"Venomoth","type1":"Bug","type2":"Poison","base_spe":90},{"num":50,"name":"Diglett","type1":"Ground","type2":null,"base_spe":95},{"num":50,"name":"Diglett-Alola","type1":"Ground","type2":"Steel","base_spe":90},{"num":51,"name":"Dugtrio","type1":"Ground","type2":null,"base_spe":120},{"num":51,"name":"Dugtrio-Alola","type1":"Ground","type2":"Steel","base_spe":110},{"num":52,"name":"Meowth","type1":"Normal","type2":null,"base_spe":90},{"num":52,"name":"Meowth-Alola","type1":"Dark","type2":null,"base_spe":90},{"num":52,"name":"Meowth-Galar","type1":"Steel","type2":null,"base_spe":40},{"num":53,"name":"Persian","type1":"Normal","type2":null,"base_spe":115},{"num":53,"name":"Persian-Alola","type1":"Dark","type2":null,"base_spe":115},{"num":54,"name":"Psyduck","type1":"Water","type2":null,"base_spe":55},{"num":55,"name":"Golduck","type1":"Water","type2":null,"base_spe":85},{"num":56,"name":"Mankey","type1":"Fighting","type2":null,"base_spe":70},{"num":57,"name":"Primeape","type1":"Fighting","type2":null,"base_spe":95},{"num":58,"name":"Growlithe","type1":"Fire","type2":null,"base_spe":60},{"num":58,"name":"Growlithe-Hisui","type1":"Fire","type2":"Rock","base_spe":55},{"num":59,"name":"Arcanine","type1":"Fire","type2":null,"base_spe":95},{"num":59,"name":"Arcanine-Hisui","type1":"Fire","type2":"Rock","base_spe":90},{"num":60,"name":"Poliwag","type1":"Water","type2":null,"base_spe":90},{"num":61,"name":"Poliwhirl","type1":"Water","type2":null,"base_spe":90},{"num":62,"name":"Poliwrath","type1":"Water","type2":"Fighting","base_spe":70},{"num":63,"name":"Abra","type1":"Psychic","type2":null,"base_spe":90},{"num":64,"name":"Kadabra","type1":"Psychic","type2":null,"base_spe":105},{"num":65,"name":"Alakazam","type1":"Psychic","type2":null,"base_spe":120},{"num":66,"name":"Machop","type1":"Fighting","type2":null,"base_spe":35},{"num":67,"name":"Machoke","type1":"Fighting","type2":null,"base_spe":45},{"num":68,"name":"Machamp","type1":"Fighting","type2":null,"base_spe":55},{"num":69,"name":"Bellsprout","type1":"Grass","type2":"Poison","base_spe":40},{"num":70,"name":"Weepinbell","type1":"Grass","type2":"Poison","base_spe":55},{"num":71,"name":"Victreebel","type1":"Grass","type2":"Poison","base_spe":70},{"num":72,"name":"Tentacool","type1":"Water","type2":"Poison","base_spe":70},{"num":73,"name":"Tentacruel","type1":"Water","type2":"Poison","base_spe":100},{"num":74,"name":"Geodude","type1":"Rock","type2":"Ground","base_spe":20},{"num":74,"name":"Geodude-Alola","type1":"Rock","type2":"Electric","base_spe":20},{"num":75,"name":"Graveler","type1":"Rock","type2":"Ground","base_spe":35},{"num":75,"name":"Graveler-Alola","type1":"Rock","type2":"Electric","base_spe":35},{"num":76,"name":"Golem","type1":"Rock","type2":"Ground","base_spe":45},{"num":76,"name":"Golem-Alola","type1":"Rock","type2":"Electric","base_spe":45},{"num":77,"name":"Ponyta","type1":"Fire","type2":null,"base_spe":90},{"num":77,"name":"Ponyta-Galar","type1":"Psychic","type2":null,"base_spe":90},{"num":78,"name":"Rapidash","type1":"Fire","type2":null,"base_spe":105},{"num":78,"name":"Rapidash-Galar","type1":"Psychic","type2":"Fairy","base_spe":105},{"num":79,"name":"Slowpoke","type1":"Water","type2":"Psychic","base_spe":15},{"num":79,"name":"Slowpoke-Galar","type1":"Psychic","type2":null,"base_spe":15},{"num":80,"name":"Slowbro","type1":"Water","type2":"Psychic","base_spe":30},{"num":80,"name":"Slowbro-Galar","type1":"Poison","type2":"Psychic","base_spe":30},{"num":81,"name":"Magnemite","type1":"Electric","type2":"Steel","base_spe":45},{"num":82,"name":"Magneton","type1":"Electric","type2":"Steel","base_spe":70},{"num":83,"name":"Farfetch\u2019d","type1":"Normal","type2":"Flying","base_spe":60},{"num":83,"name":"Farfetch\u2019d-Galar","type1":"Fighting","type2":null,"base_spe":55},{"num":84,"name":"Doduo","type1":"Normal","type2":"Flying","base_spe":75},{"num":85,"name":"Dodrio","type1":"Normal","type2":"Flying","base_spe":110},{"num":86,"name":"Seel","type1":"Water","type2":null,"base_spe":45},{"num":87,"name":"Dewgong","type1":"Water","type2":"Ice","base_spe":70},{"num":88,"name":"Grimer","type1":"Poison","type2":null,"base_spe":25},{"num":88,"name":"Grimer-Alola","type1":"Poison","type2":"Dark","base_spe":25},{"num":89,"name":"Muk","type1":"Poison","type2":null,"base_spe":50},{"num":89,"name":"Muk-Alola","type1":"Poison","type2":"Dark","base_spe":50},{"num":90,"name":"Shellder","type1":"Water","type2":null,"base_spe":40},{"num":91,"name":"Cloyster","type1":"Water","type2":"Ice","base_spe":70},{"num":92,"name":"Gastly","type1":"Ghost","type2":"Poison","base_spe":80},{"num":93,"name":"Haunter","type1":"Ghost","type2":"Poison","base_spe":95},{"num":94,"name":"Gengar","type1":"Ghost","type2":"Poison","base_spe":110},{"num":95,"name":"Onix","type1":"Rock","type2":"Ground","base_spe":70},{"num":96,"name":"Drowzee","type1":"Psychic","type2":null,"base_spe":42},{"num":97,"name":"Hypno","type1":"Psychic","type2":null,"base_spe":67},{"num":98,"name":"Krabby","type1":"Water","type2":null,"base_spe":50},{"num":99,"name":"Kingler","type1":"Water","type2":null,"base_spe":75},{"num":100,"name":"Voltorb","type1":"Electric","type2":null,"base_spe":100},{"num":100,"name":"Voltorb-Hisui","type1":"Electric","type2":"Grass","base_spe":100},{"num":101,"name":"Electrode","type1":"Electric","type2":null,"base_spe":150},{"num":101,"name":"Electrode-Hisui","type1":"Electric","type2":"Grass","base_spe":150},{"num":102,"name":"Exeggcute","type1":"Grass","type2":"Psychic","base_spe":40},{"num":103,"name":"Exeggutor","type1":"Grass","type2":"Psychic","base_spe":55},{"num":103,"name":"Exeggutor-Alola","type1":"Grass","type2":"Dragon","base_spe":45},{"num":104,"name":"Cubone","type1":"Ground","type2":null,"base_spe":35},{"num":105,"name":"Marowak","type1":"Ground","type2":null,"base_spe":45},{"num":105,"name":"Marowak-Alola","type1":"Fire","type2":"Ghost","base_spe":45},{"num":106,"name":"Hitmonlee","type1":"Fighting","type2":null,"base_spe":87},{"num":107,"name":"Hitmonchan","type1":"Fighting","type2":null,"base_spe":76},{"num":108,"name":"Lickitung","type1":"Normal","type2":null,"base_spe":30},{"num":109,"name":"Koffing","type1":"Poison","type2":null,"base_spe":35},{"num":110,"name":"Weezing","type1":"Poison","type2":null,"base_spe":60},{"num":110,"name":"Weezing-Galar","type1":"Poison","type2":"Fairy","base_spe":60},{"num":111,"name":"Rhyhorn","type1":"Ground","type2":"Rock","base_spe":25},{"num":112,"name":"Rhydon","type1":"Ground","type2":"Rock","base_spe":40},{"num":113,"name":"Chansey","type1":"Normal","type2":null,"base_spe":50},{"num":114,"name":"Tangela","type1":"Grass","type2":null,"base_spe":60},{"num":115,"name":"Kangaskhan","type1":"Normal","type2":null,"base_spe":90},{"num":116,"name":"Horsea","type1":"Water","type2":null,"base_spe":60},{"num":117,"name":"Seadra","type1":"Water","type2":null,"base_spe":85},{"num":118,"name":"Goldeen","type1":"Water","type2":null,"base_spe":63},{"num":119,"name":"Seaking","type1":"Water","type2":null,"base_spe":68},{"num":120,"name":"Staryu","type1":"Water","type2":null,"base_spe":85},{"num":121,"name":"Starmie","type1":"Water","type2":"Psychic","base_spe":115},{"num":122,"name":"Mr. Mime","type1":"Psychic","type2":"Fairy","base_spe":90},{"num":122,"name":"Mr. Mime-Galar","type1":"Ice","type2":"Psychic","base_spe":100},{"num":123,"name":"Scyther","type1":"Bug","type2":"Flying","base_spe":105},{"num":124,"name":"Jynx","type1":"Ice","type2":"Psychic","base_spe":95},{"num":125,"name":"Electabuzz","type1":"Electric","type2":null,"base_spe":105},{"num":126,"name":"Magmar","type1":"Fire","type2":null,"base_spe":93},{"num":127,"name":"Pinsir","type1":"Bug","type2":null,"base_spe":85},{"num":128,"name":"Tauros","type1":"Normal","type2":null,"base_spe":110},{"num":129,"name":"Magikarp","type1":"Water","type2":null,"base_spe":80},{"num":130,"name":"Gyarados","type1":"Water","type2":"Flying","base_spe":81},{"num":131,"name":"Lapras","type1":"Water","type2":"Ice","base_spe":60},{"num":132,"name":"Ditto","type1":"Normal","type2":null,"base_spe":48},{"num":133,"name":"Eevee","type1":"Normal","type2":null,"base_spe":55},{"num":133,"name":"Eevee-Starter","type1":"Normal","type2":null,"base_spe":75},{"num":134,"name":"Vaporeon","type1":"Water","type2":null,"base_spe":65},{"num":135,"name":"Jolteon","type1":"Electric","type2":null,"base_spe":130},{"num":136,"name":"Flareon","type1":"Fire","type2":null,"base_spe":65},{"num":137,"name":"Porygon","type1":"Normal","type2":null,"base_spe":40},{"num":138,"name":"Omanyte","type1":"Rock","type2":"Water","base_spe":35},{"num":139,"name":"Omastar","type1":"Rock","type2":"Water","base_spe":55},{"num":140,"name":"Kabuto","type1":"Rock","type2":"Water","base_spe":55},{"num":141,"name":"Kabutops","type1":"Rock","type2":"Water","base_spe":80},{"num":142,"name":"Aerodactyl","type1":"Rock","type2":"Flying","base_spe":130},{"num":143,"name":"Snorlax","type1":"Normal","type2":null,"base_spe":30},{"num":144,"name":"Articuno","type1":"Ice","type2":"Flying","base_spe":85},{"num":144,"name":"Articuno-Galar","type1":"Psychic","type2":"Flying","base_spe":95},{"num":145,"name":"Zapdos","type1":"Electric","type2":"Flying","base_spe":100},{"num":145,"name":"Zapdos-Galar","type1":"Fighting","type2":"Flying","base_spe":100},{"num":146,"name":"Moltres","type1":"Fire","type2":"Flying","base_spe":90},{"num":146,"name":"Moltres-Galar","type1":"Dark","type2":"Flying","base_spe":90},{"num":147,"name":"Dratini","type1":"Dragon","type2":null,"base_spe":50},{"num":148,"name":"Dragonair","type1":"Dragon","type2":null,"base_spe":70},{"num":149,"name":"Dragonite","type1":"Dragon","type2":"Flying","base_spe":80},{"num":150,"name":"Mewtwo","type1":"Psychic","type2":null,"base_spe":130},{"num":151,"name":"Mew","type1":"Psychic","type2":null,"base_spe":100},{"num":152,"name":"Chikorita","type1":"Grass","type2":null,"base_spe":45},{"num":153,"name":"Bayleef","type1":"Grass","type2":null,"base_spe":60},{"num":154,"name":"Meganium","type1":"Grass","type2":null,"base_spe":80},{"num":155,"name":"Cyndaquil","type1":"Fire","type2":null,"base_spe":65},{"num":156,"name":"Quilava","type1":"Fire","type2":null,"base_spe":80},{"num":157,"name":"Typhlosion","type1":"Fire","type2":null,"base_spe":100},{"num":157,"name":"Typhlosion-Hisui","type1":"Fire","type2":"Ghost","base_spe":95},{"num":158,"name":"Totodile","type1":"Water","type2":null,"base_spe":43},{"num":159,"name":"Croconaw","type1":"Water","type2":null,"base_spe":58},{"num":160,"name":"Feraligatr","type1":"Water","type2":null,"base_spe":78},{"num":161,"name":"Sentret","type1":"Normal","type2":null,"base_spe":20},{"num":162,"name":"Furret","type1":"Normal","type2":null,"base_spe":90},{"num":163,"name":"Hoothoot","type1":"Normal","type2":"Flying","base_spe":50},{"num":164,"name":"Noctowl","type1":"Normal","type2":"Flying","base_spe":70},{"num":165,"name":"Ledyba","type1":"Bug","type2":"Flying","base_spe":55},{"num":166,"name":"Ledian","type1":"Bug","type2":"Flying","base_spe":85},{"num":167,"name":"Spinarak","type1":"Bug","type2":"Poison","base_spe":30},{"num":168,"name":"Ariados","type1":"Bug","type2":"Poison","base_spe":40},{"num":169,"name":"Crobat","type1":"Poison","type2":"Flying","base_spe":130},{"num":170,"name":"Chinchou","type1":"Water","type2":"Electric","base_spe":67},{"num":171,"name":"Lanturn","type1":"Water","type2":"Electric","base_spe":67},{"num":172,"name":"Pichu","type1":"Electric","type2":null,"base_spe":60},{"num":173,"name":"Cleffa","type1":"Fairy","type2":null,"base_spe":15},{"num":174,"name":"Igglybuff","type1":"Normal","type2":"Fairy","base_spe":15},{"num":175,"name":"Togepi","type1":"Fairy","type2":null,"base_spe":20},{"num":176,"name":"Togetic","type1":"Fairy","type2":"Flying","base_spe":40},{"num":177,"name":"Natu","type1":"Psychic","type2":"Flying","base_spe":70},{"num":178,"name":"Xatu","type1":"Psychic","type2":"Flying","base_spe":95},{"num":179,"name":"Mareep","type1":"Electric","type2":null,"base_spe":35},{"num":180,"name":"Flaaffy","type1":"Electric","type2":null,"base_spe":45},{"num":181,"name":"Ampharos","type1":"Electric","type2":null,"base_spe":55},{"num":182,"name":"Bellossom","type1":"Grass","type2":null,"base_spe":50},{"num":183,"name":"Marill","type1":"Water","type2":"Fairy","base_spe":40},{"num":184,"name":"Azumarill","type1":"Water","type2":"Fairy","base_spe":50},{"num":185,"name":"Sudowoodo","type1":"Rock","type2":null,"base_spe":30},{"num":186,"name":"Politoed","type1":"Water","type2":null,"base_spe":70},{"num":187,"name":"Hoppip","type1":"Grass","type2":"Flying","base_spe":50},{"num":188,"name":"Skiploom","type1":"Grass","type2":"Flying","base_spe":80},{"num":189,"name":"Jumpluff","type1":"Grass","type2":"Flying","base_spe":110},{"num":190,"name":"Aipom","type1":"Normal","type2":null,"base_spe":85},{"num":191,"name":"Sunkern","type1":"Grass","type2":null,"base_spe":30},{"num":192,"name":"Sunflora","type1":"Grass","type2":null,"base_spe":30},{"num":193,"name":"Yanma","type1":"Bug","type2":"Flying","base_spe":95},{"num":194,"name":"Wooper","type1":"Water","type2":"Ground","base_spe":15},{"num":195,"name":"Quagsire","type1":"Water","type2":"Ground","base_spe":35},{"num":196,"name":"Espeon","type1":"Psychic","type2":null,"base_spe":110},{"num":197,"name":"Umbreon","type1":"Dark","type2":null,"base_spe":65},{"num":198,"name":"Murkrow","type1":"Dark","type2":"Flying","base_spe":91},{"num":199,"name":"Slowking","type1":"Water","type2":"Psychic","base_spe":30},{"num":199,"name":"Slowking-Galar","type1":"Poison","type2":"Psychic","base_spe":30},{"num":200,"name":"Misdreavus","type1":"Ghost","type2":null,"base_spe":85},{"num":201,"name":"Unown","type1":"Psychic","type2":null,"base_spe":48},{"num":202,"name":"Wobbuffet","type1":"Psychic","type2":null,"base_spe":33},{"num":203,"name":"Girafarig","type1":"Normal","type2":"Psychic","base_spe":85},{"num":204,"name":"Pineco","type1":"Bug","type2":null,"base_spe":15},{"num":205,"name":"Forretress","type1":"Bug","type2":"Steel","base_spe":40},{"num":206,"name":"Dunsparce","type1":"Normal","type2":null,"base_spe":45},{"num":207,"name":"Gligar","type1":"Ground","type2":"Flying","base_spe":85},{"num":208,"name":"Steelix","type1":"Steel","type2":"Ground","base_spe":30},{"num":209,"name":"Snubbull","type1":"Fairy","type2":null,"base_spe":30},{"num":210,"name":"Granbull","type1":"Fairy","type2":null,"base_spe":45},{"num":211,"name":"Qwilfish","type1":"Water","type2":"Poison","base_spe":85},{"num":211,"name":"Qwilfish-Hisui","type1":"Dark","type2":"Poison","base_spe":85},{"num":212,"name":"Scizor","type1":"Bug","type2":"Steel","base_spe":65},{"num":213,"name":"Shuckle","type1":"Bug","type2":"Rock","base_spe":5},{"num":214,"name":"Heracross","type1":"Bug","type2":"Fighting","base_spe":85},{"num":215,"name":"Sneasel","type1":"Dark","type2":"Ice","base_spe":115},{"num":215,"name":"Sneasel-Hisui","type1":"Fighting","type2":"Poison","base_spe":115},{"num":216,"name":"Teddiursa","type1":"Normal","type2":null,"base_spe":40},{"num":217,"name":"Ursaring","type1":"Normal","type2":null,"base_spe":55},{"num":218,"name":"Slugma","type1":"Fire","type2":null,"base_spe":20},{"num":219,"name":"Magcargo","type1":"Fire","type2":"Rock","base_spe":30},{"num":220,"name":"Swinub","type1":"Ice","type2":"Ground","base_spe":50},{"num":221,"name":"Piloswine","type1":"Ice","type2":"Ground","base_spe":50},{"num":222,"name":"Corsola","type1":"Water","type2":"Rock","base_spe":35},{"num":222,"name":"Corsola-Galar","type1":"Ghost","type2":null,"base_spe":30},{"num":223,"name":"Remoraid","type1":"Water","type2":null,"base_spe":65},{"num":224,"name":"Octillery","type1":"Water","type2":null,"base_spe":45},{"num":225,"name":"Delibird","type1":"Ice","type2":"Flying","base_spe":75},{"num":226,"name":"Mantine","type1":"Water","type2":"Flying","base_spe":70},{"num":227,"name":"Skarmory","type1":"Steel","type2":"Flying","base_spe":70},{"num":228,"name":"Houndour","type1":"Dark","type2":"Fire","base_spe":65},{"num":229,"name":"Houndoom","type1":"Dark","type2":"Fire","base_spe":95},{"num":230,"name":"Kingdra","type1":"Water","type2":"Dragon","base_spe":85},{"num":231,"name":"Phanpy","type1":"Ground","type2":null,"base_spe":40},{"num":232,"name":"Donphan","type1":"Ground","type2":null,"base_spe":50},{"num":233,"name":"Porygon2","type1":"Normal","type2":null,"base_spe":60},{"num":234,"name":"Stantler","type1":"Normal","type2":null,"base_spe":85},{"num":235,"name":"Smeargle","type1":"Normal","type2":null,"base_spe":75},{"num":236,"name":"Tyrogue","type1":"Fighting","type2":null,"base_spe":35},{"num":237,"name":"Hitmontop","type1":"Fighting","type2":null,"base_spe":70},{"num":238,"name":"Smoochum","type1":"Ice","type2":"Psychic","base_spe":65},{"num":239,"name":"Elekid","type1":"Electric","type2":null,"base_spe":95},{"num":240,"name":"Magby","type1":"Fire","type2":null,"base_spe":83},{"num":241,"name":"Miltank","type1":"Normal","type2":null,"base_spe":100},{"num":242,"name":"Blissey","type1":"Normal","type2":null,"base_spe":55},{"num":243,"name":"Raikou","type1":"Electric","type2":null,"base_spe":115},{"num":244,"name":"Entei","type1":"Fire","type2":null,"base_spe":100},{"num":245,"name":"Suicune","type1":"Water","type2":null,"base_spe":85},{"num":246,"name":"Larvitar","type1":"Rock","type2":"Ground","base_spe":41},{"num":247,"name":"Pupitar","type1":"Rock","type2":"Ground","base_spe":51},{"num":248,"name":"Tyranitar","type1":"Rock","type2":"Dark","base_spe":61},{"num":249,"name":"Lugia","type1":"Psychic","type2":"Flying","base_spe":110},{"num":250,"name":"Ho-Oh","type1":"Fire","type2":"Flying","base_spe":90},{"num":251,"name":"Celebi","type1":"Psychic","type2":"Grass","base_spe":100},{"num":252,"name":"Treecko","type1":"Grass","type2":null,"base_spe":70},{"num":253,"name":"Grovyle","type1":"Grass","type2":null,"base_spe":95},{"num":254,"name":"Sceptile","type1":"Grass","type2":null,"base_spe":120},{"num":255,"name":"Torchic","type1":"Fire","type2":null,"base_spe":45},{"num":256,"name":"Combusken","type1":"Fire","type2":"Fighting","base_spe":55},{"num":257,"name":"Blaziken","type1":"Fire","type2":"Fighting","base_spe":80},{"num":258,"name":"Mudkip","type1":"Water","type2":null,"base_spe":40},{"num":259,"name":"Marshtomp","type1":"Water","type2":"Ground","base_spe":50},{"num":260,"name":"Swampert","type1":"Water","type2":"Ground","base_spe":60},{"num":261,"name":"Poochyena","type1":"Dark","type2":null,"base_spe":35},{"num":262,"name":"Mightyena","type1":"Dark","type2":null,"base_spe":70},{"num":263,"name":"Zigzagoon","type1":"Normal","type2":null,"base_spe":60},{"num":263,"name":"Zigzagoon-Galar","type1":"Dark","type2":"Normal","base_spe":60},{"num":264,"name":"Linoone","type1":"Normal","type2":null,"base_spe":100},{"num":264,"name":"Linoone-Galar","type1":"Dark","type2":"Normal","base_spe":100},{"num":265,"name":"Wurmple","type1":"Bug","type2":null,"base_spe":20},{"num":266,"name":"Silcoon","type1":"Bug","type2":null,"base_spe":15},{"num":267,"name":"Beautifly","type1":"Bug","type2":"Flying","base_spe":65},{"num":268,"name":"Cascoon","type1":"Bug","type2":null,"base_spe":15},{"num":269,"name":"Dustox","type1":"Bug","type2":"Poison","base_spe":65},{"num":270,"name":"Lotad","type1":"Water","type2":"Grass","base_spe":30},{"num":271,"name":"Lombre","type1":"Water","type2":"Grass","base_spe":50},{"num":272,"name":"Ludicolo","type1":"Water","type2":"Grass","base_spe":70},{"num":273,"name":"Seedot","type1":"Grass","type2":null,"base_spe":30},{"num":274,"name":"Nuzleaf","type1":"Grass","type2":"Dark","base_spe":60},{"num":275,"name":"Shiftry","type1":"Grass","type2":"Dark","base_spe":80},{"num":276,"name":"Taillow","type1":"Normal","type2":"Flying","base_spe":85},{"num":277,"name":"Swellow","type1":"Normal","type2":"Flying","base_spe":125},{"num":278,"name":"Wingull","type1":"Water","type2":"Flying","base_spe":85},{"num":279,"name":"Pelipper","type1":"Water","type2":"Flying","base_spe":65},{"num":280,"name":"Ralts","type1":"Psychic","type2":"Fairy","base_spe":40},{"num":281,"name":"Kirlia","type1":"Psychic","type2":"Fairy","base_spe":50},{"num":282,"name":"Gardevoir","type1":"Psychic","type2":"Fairy","base_spe":80},{"num":283,"name":"Surskit","type1":"Bug","type2":"Water","base_spe":65},{"num":284,"name":"Masquerain","type1":"Bug","type2":"Flying","base_spe":80},{"num":285,"name":"Shroomish","type1":"Grass","type2":null,"base_spe":35},{"num":286,"name":"Breloom","type1":"Grass","type2":"Fighting","base_spe":70},{"num":287,"name":"Slakoth","type1":"Normal","type2":null,"base_spe":30},{"num":288,"name":"Vigoroth","type1":"Normal","type2":null,"base_spe":90},{"num":289,"name":"Slaking","type1":"Normal","type2":null,"base_spe":100},{"num":290,"name":"Nincada","type1":"Bug","type2":"Ground","base_spe":40},{"num":291,"name":"Ninjask","type1":"Bug","type2":"Flying","base_spe":160},{"num":292,"name":"Shedinja","type1":"Bug","type2":"Ghost","base_spe":40},{"num":293,"name":"Whismur","type1":"Normal","type2":null,"base_spe":28},{"num":294,"name":"Loudred","type1":"Normal","type2":null,"base_spe":48},{"num":295,"name":"Exploud","type1":"Normal","type2":null,"base_spe":68},{"num":296,"name":"Makuhita","type1":"Fighting","type2":null,"base_spe":25},{"num":297,"name":"Hariyama","type1":"Fighting","type2":null,"base_spe":50},{"num":298,"name":"Azurill","type1":"Normal","type2":"Fairy","base_spe":20},{"num":299,"name":"Nosepass","type1":"Rock","type2":null,"base_spe":30},{"num":300,"name":"Skitty","type1":"Normal","type2":null,"base_spe":50},{"num":301,"name":"Delcatty","type1":"Normal","type2":null,"base_spe":90},{"num":302,"name":"Sableye","type1":"Dark","type2":"Ghost","base_spe":50},{"num":303,"name":"Mawile","type1":"Steel","type2":"Fairy","base_spe":50},{"num":304,"name":"Aron","type1":"Steel","type2":"Rock","base_spe":30},{"num":305,"name":"Lairon","type1":"Steel","type2":"Rock","base_spe":40},{"num":306,"name":"Aggron","type1":"Steel","type2":"Rock","base_spe":50},{"num":307,"name":"Meditite","type1":"Fighting","type2":"Psychic","base_spe":60},{"num":308,"name":"Medicham","type1":"Fighting","type2":"Psychic","base_spe":80},{"num":309,"name":"Electrike","type1":"Electric","type2":null,"base_spe":65},{"num":310,"name":"Manectric","type1":"Electric","type2":null,"base_spe":105},{"num":311,"name":"Plusle","type1":"Electric","type2":null,"base_spe":95},{"num":312,"name":"Minun","type1":"Electric","type2":null,"base_spe":95},{"num":313,"name":"Volbeat","type1":"Bug","type2":null,"base_spe":85},{"num":314,"name":"Illumise","type1":"Bug","type2":null,"base_spe":85},{"num":315,"name":"Roselia","type1":"Grass","type2":"Poison","base_spe":65},{"num":316,"name":"Gulpin","type1":"Poison","type2":null,"base_spe":40},{"num":317,"name":"Swalot","type1":"Poison","type2":null,"base_spe":55},{"num":318,"name":"Carvanha","type1":"Water","type2":"Dark","base_spe":65},{"num":319,"name":"Sharpedo","type1":"Water","type2":"Dark","base_spe":95},{"num":320,"name":"Wailmer","type1":"Water","type2":null,"base_spe":60},{"num":321,"name":"Wailord","type1":"Water","type2":null,"base_spe":60},{"num":322,"name":"Numel","type1":"Fire","type2":"Ground","base_spe":35},{"num":323,"name":"Camerupt","type1":"Fire","type2":"Ground","base_spe":40},{"num":324,"name":"Torkoal","type1":"Fire","type2":null,"base_spe":20},{"num":325,"name":"Spoink","type1":"Psychic","type2":null,"base_spe":60},{"num":326,"name":"Grumpig","type1":"Psychic","type2":null,"base_spe":80},{"num":327,"name":"Spinda","type1":"Normal","type2":null,"base_spe":60},{"num":328,"name":"Trapinch","type1":"Ground","type2":null,"base_spe":10},{"num":329,"name":"Vibrava","type1":"Ground","type2":"Dragon","base_spe":70},{"num":330,"name":"Flygon","type1":"Ground","type2":"Dragon","base_spe":100},{"num":331,"name":"Cacnea","type1":"Grass","type2":null,"base_spe":35},{"num":332,"name":"Cacturne","type1":"Grass","type2":"Dark","base_spe":55},{"num":333,"name":"Swablu","type1":"Normal","type2":"Flying","base_spe":50},{"num":334,"name":"Altaria","type1":"Dragon","type2":"Flying","base_spe":80},{"num":335,"name":"Zangoose","type1":"Normal","type2":null,"base_spe":90},{"num":336,"name":"Seviper","type1":"Poison","type2":null,"base_spe":65},{"num":337,"name":"Lunatone","type1":"Rock","type2":"Psychic","base_spe":70},{"num":338,"name":"Solrock","type1":"Rock","type2":"Psychic","base_spe":70},{"num":339,"name":"Barboach","type1":"Water","type2":"Ground","base_spe":60},{"num":340,"name":"Whiscash","type1":"Water","type2":"Ground","base_spe":60},{"num":341,"name":"Corphish","type1":"Water","type2":null,"base_spe":35},{"num":342,"name":"Crawdaunt","type1":"Water","type2":"Dark","base_spe":55},{"num":343,"name":"Baltoy","type1":"Ground","type2":"Psychic","base_spe":55},{"num":344,"name":"Claydol","type1":"Ground","type2":"Psychic","base_spe":75},{"num":345,"name":"Lileep","type1":"Rock","type2":"Grass","base_spe":23},{"num":346,"name":"Cradily","type1":"Rock","type2":"Grass","base_spe":43},{"num":347,"name":"Anorith","type1":"Rock","type2":"Bug","base_spe":75},{"num":348,"name":"Armaldo","type1":"Rock","type2":"Bug","base_spe":45},{"num":349,"name":"Feebas","type1":"Water","type2":null,"base_spe":80},{"num":350,"name":"Milotic","type1":"Water","type2":null,"base_spe":81},{"num":351,"name":"Castform","type1":"Normal","type2":null,"base_spe":70},{"num":351,"name":"Castform-Sunny","type1":"Fire","type2":null,"base_spe":70},{"num":351,"name":"Castform-Rainy","type1":"Water","type2":null,"base_spe":70},{"num":351,"name":"Castform-Snowy","type1":"Ice","type2":null,"base_spe":70},{"num":352,"name":"Kecleon","type1":"Normal","type2":null,"base_spe":40},{"num":353,"name":"Shuppet","type1":"Ghost","type2":null,"base_spe":45},{"num":354,"name":"Banette","type1":"Ghost","type2":null,"base_spe":65},{"num":355,"name":"Duskull","type1":"Ghost","type2":null,"base_spe":25},{"num":356,"name":"Dusclops","type1":"Ghost","type2":null,"base_spe":25},{"num":357,"name":"Tropius","type1":"Grass","type2":"Flying","base_spe":51},{"num":358,"name":"Chimecho","type1":"Psychic","type2":null,"base_spe":65},{"num":359,"name":"Absol","type1":"Dark","type2":null,"base_spe":75},{"num":360,"name":"Wynaut","type1":"Psychic","type2":null,"base_spe":23},{"num":361,"name":"Snorunt","type1":"Ice","type2":null,"base_spe":50},{"num":362,"name":"Glalie","type1":"Ice","type2":null,"base_spe":80},{"num":363,"name":"Spheal","type1":"Ice","type2":"Water","base_spe":25},{"num":364,"name":"Sealeo","type1":"Ice","type2":"Water","base_spe":45},{"num":365,"name":"Walrein","type1":"Ice","type2":"Water","base_spe":65},{"num":366,"name":"Clamperl","type1":"Water","type2":null,"base_spe":32},{"num":367,"name":"Huntail","type1":"Water","type2":null,"base_spe":52},{"num":368,"name":"Gorebyss","type1":"Water","type2":null,"base_spe":52},{"num":369,"name":"Relicanth","type1":"Water","type2":"Rock","base_spe":55},{"num":370,"name":"Luvdisc","type1":"Water","type2":null,"base_spe":97},{"num":371,"name":"Bagon","type1":"Dragon","type2":null,"base_spe":50},{"num":372,"name":"Shelgon","type1":"Dragon","type2":null,"base_spe":50},{"num":373,"name":"Salamence","type1":"Dragon","type2":"Flying","base_spe":100},{"num":374,"name":"Beldum","type1":"Steel","type2":"Psychic","base_spe":30},{"num":375,"name":"Metang","type1":"Steel","type2":"Psychic","base_spe":50},{"num":376,"name":"Metagross","type1":"Steel","type2":"Psychic","base_spe":70},{"num":377,"name":"Regirock","type1":"Rock","type2":null,"base_spe":50},{"num":378,"name":"Regice","type1":"Ice","type2":null,"base_spe":50},{"num":379,"name":"Registeel","type1":"Steel","type2":null,"base_spe":50},{"num":380,"name":"Latias","type1":"Dragon","type2":"Psychic","base_spe":110},{"num":381,"name":"Latios","type1":"Dragon","type2":"Psychic","base_spe":110},{"num":382,"name":"Kyogre","type1":"Water","type2":null,"base_spe":90},{"num":382,"name":"Kyogre-Primal","type1":"Water","type2":null,"base_spe":90},{"num":383,"name":"Groudon","type1":"Ground","type2":null,"base_spe":90},{"num":383,"name":"Groudon-Primal","type1":"Ground","type2":"Fire","base_spe":90},{"num":384,"name":"Rayquaza","type1":"Dragon","type2":"Flying","base_spe":95},{"num":385,"name":"Jirachi","type1":"Steel","type2":"Psychic","base_spe":100},{"num":386,"name":"Deoxys","type1":"Psychic","type2":null,"base_spe":150},{"num":386,"name":"Deoxys-Attack","type1":"Psychic","type2":null,"base_spe":150},{"num":386,"name":"Deoxys-Defense","type1":"Psychic","type2":null,"base_spe":90},{"num":386,"name":"Deoxys-Speed","type1":"Psychic","type2":null,"base_spe":180},{"num":387,"name":"Turtwig","type1":"Grass","type2":null,"base_spe":31},{"num":388,"name":"Grotle","type1":"Grass","type2":null,"base_spe":36},{"num":389,"name":"Torterra","type1":"Grass","type2":"Ground","base_spe":56},{"num":390,"name":"Chimchar","type1":"Fire","type2":null,"base_spe":61},{"num":391,"name":"Monferno","type1":"Fire","type2":"Fighting","base_spe":81},{"num":392,"name":"Infernape","type1":"Fire","type2":"Fighting","base_spe":108},{"num":393,"name":"Piplup","type1":"Water","type2":null,"base_spe":40},{"num":394,"name":"Prinplup","type1":"Water","type2":null,"base_spe":50},{"num":395,"name":"Empoleon","type1":"Water","type2":"Steel","base_spe":60},{"num":396,"name":"Starly","type1":"Normal","type2":"Flying","base_spe":60},{"num":397,"name":"Staravia","type1":"Normal","type2":"Flying","base_spe":80},{"num":398,"name":"Staraptor","type1":"Normal","type2":"Flying","base_spe":100},{"num":399,"name":"Bidoof","type1":"Normal","type2":null,"base_spe":31},{"num":400,"name":"Bibarel","type1":"Normal","type2":"Water","base_spe":71},{"num":401,"name":"Kricketot","type1":"Bug","type2":null,"base_spe":25},{"num":402,"name":"Kricketune","type1":"Bug","type2":null,"base_spe":65},{"num":403,"name":"Shinx","type1":"Electric","type2":null,"base_spe":45},{"num":404,"name":"Luxio","type1":"Electric","type2":null,"base_spe":60},{"num":405,"name":"Luxray","type1":"Electric","type2":null,"base_spe":70},{"num":406,"name":"Budew","type1":"Grass","type2":"Poison","base_spe":55},{"num":407,"name":"Roserade","type1":"Grass","type2":"Poison","base_spe":90},{"num":408,"name":"Cranidos","type1":"Rock","type2":null,"base_spe":58},{"num":409,"name":"Rampardos","type1":"Rock","type2":null,"base_spe":58},{"num":410,"name":"Shieldon","type1":"Rock","type2":"Steel","base_spe":30},{"num":411,"name":"Bastiodon","type1":"Rock","type2":"Steel","base_spe":30},{"num":412,"name":"Burmy","type1":"Bug","type2":null,"base_spe":36},{"num":413,"name":"Wormadam","type1":"Bug","type2":"Grass","base_spe":36},{"num":413,"name":"Wormadam-Sandy","type1":"Bug","type2":"Ground","base_spe":36},{"num":413,"name":"Wormadam-Trash","type1":"Bug","type2":"Steel","base_spe":36},{"num":414,"name":"Mothim","type1":"Bug","type2":"Flying","base_spe":66},{"num":415,"name":"Combee","type1":"Bug","type2":"Flying","base_spe":70},{"num":416,"name":"Vespiquen","type1":"Bug","type2":"Flying","base_spe":40},{"num":417,"name":"Pachirisu","type1":"Electric","type2":null,"base_spe":95},{"num":418,"name":"Buizel","type1":"Water","type2":null,"base_spe":85},{"num":419,"name":"Floatzel","type1":"Water","type2":null,"base_spe":115},{"num":420,"name":"Cherubi","type1":"Grass","type2":null,"base_spe":35},{"num":421,"name":"Cherrim","type1":"Grass","type2":null,"base_spe":85},{"num":422,"name":"Shellos","type1":"Water","type2":null,"base_spe":34},{"num":423,"name":"Gastrodon","type1":"Water","type2":"Ground","base_spe":39},{"num":424,"name":"Ambipom","type1":"Normal","type2":null,"base_spe":115},{"num":425,"name":"Drifloon","type1":"Ghost","type2":"Flying","base_spe":70},{"num":426,"name":"Drifblim","type1":"Ghost","type2":"Flying","base_spe":80},{"num":427,"name":"Buneary","type1":"Normal","type2":null,"base_spe":85},{"num":428,"name":"Lopunny","type1":"Normal","type2":null,"base_spe":105},{"num":429,"name":"Mismagius","type1":"Ghost","type2":null,"base_spe":105},{"num":430,"name":"Honchkrow","type1":"Dark","type2":"Flying","base_spe":71},{"num":431,"name":"Glameow","type1":"Normal","type2":null,"base_spe":85},{"num":432,"name":"Purugly","type1":"Normal","type2":null,"base_spe":112},{"num":433,"name":"Chingling","type1":"Psychic","type2":null,"base_spe":45},{"num":434,"name":"Stunky","type1":"Poison","type2":"Dark","base_spe":74},{"num":435,"name":"Skuntank","type1":"Poison","type2":"Dark","base_spe":84},{"num":436,"name":"Bronzor","type1":"Steel","type2":"Psychic","base_spe":23},{"num":437,"name":"Bronzong","type1":"Steel","type2":"Psychic","base_spe":33},{"num":438,"name":"Bonsly","type1":"Rock","type2":null,"base_spe":10},{"num":439,"name":"Mime Jr.","type1":"Psychic","type2":"Fairy","base_spe":60},{"num":440,"name":"Happiny","type1":"Normal","type2":null,"base_spe":30},{"num":441,"name":"Chatot","type1":"Normal","type2":"Flying","base_spe":91},{"num":442,"name":"Spiritomb","type1":"Ghost","type2":"Dark","base_spe":35},{"num":443,"name":"Gible","type1":"Dragon","type2":"Ground","base_spe":42},{"num":444,"name":"Gabite","type1":"Dragon","type2":"Ground","base_spe":82},{"num":445,"name":"Garchomp","type1":"Dragon","type2":"Ground","base_spe":102},{"num":446,"name":"Munchlax","type1":"Normal","type2":null,"base_spe":5},{"num":447,"name":"Riolu","type1":"Fighting","type2":null,"base_spe":60},{"num":448,"name":"Lucario","type1":"Fighting","type2":"Steel","base_spe":90},{"num":449,"name":"Hippopotas","type1":"Ground","type2":null,"base_spe":32},{"num":450,"name":"Hippowdon","type1":"Ground","type2":null,"base_spe":47},{"num":451,"name":"Skorupi","type1":"Poison","type2":"Bug","base_spe":65},{"num":452,"name":"Drapion","type1":"Poison","type2":"Dark","base_spe":95},{"num":453,"name":"Croagunk","type1":"Poison","type2":"Fighting","base_spe":50},{"num":454,"name":"Toxicroak","type1":"Poison","type2":"Fighting","base_spe":85},{"num":455,"name":"Carnivine","type1":"Grass","type2":null,"base_spe":46},{"num":456,"name":"Finneon","type1":"Water","type2":null,"base_spe":66},{"num":457,"name":"Lumineon","type1":"Water","type2":null,"base_spe":91},{"num":458,"name":"Mantyke","type1":"Water","type2":"Flying","base_spe":50},{"num":459,"name":"Snover","type1":"Grass","type2":"Ice","base_spe":40},{"num":460,"name":"Abomasnow","type1":"Grass","type2":"Ice","base_spe":60},{"num":461,"name":"Weavile","type1":"Dark","type2":"Ice","base_spe":125},{"num":462,"name":"Magnezone","type1":"Electric","type2":"Steel","base_spe":60},{"num":463,"name":"Lickilicky","type1":"Normal","type2":null,"base_spe":50},{"num":464,"name":"Rhyperior","type1":"Ground","type2":"Rock","base_spe":40},{"num":465,"name":"Tangrowth","type1":"Grass","type2":null,"base_spe":50},{"num":466,"name":"Electivire","type1":"Electric","type2":null,"base_spe":95},{"num":467,"name":"Magmortar","type1":"Fire","type2":null,"base_spe":83},{"num":468,"name":"Togekiss","type1":"Fairy","type2":"Flying","base_spe":80},{"num":469,"name":"Yanmega","type1":"Bug","type2":"Flying","base_spe":95},{"num":470,"name":"Leafeon","type1":"Grass","type2":null,"base_spe":95},{"num":471,"name":"Glaceon","type1":"Ice","type2":null,"base_spe":65},{"num":472,"name":"Gliscor","type1":"Ground","type2":"Flying","base_spe":95},{"num":473,"name":"Mamoswine","type1":"Ice","type2":"Ground","base_spe":80},{"num":474,"name":"Porygon-Z","type1":"Normal","type2":null,"base_spe":90},{"num":475,"name":"Gallade","type1":"Psychic","type2":"Fighting","base_spe":80},{"num":476,"name":"Probopass","type1":"Rock","type2":"Steel","base_spe":40},{"num":477,"name":"Dusknoir","type1":"Ghost","type2":null,"base_spe":45},{"num":478,"name":"Froslass","type1":"Ice","type2":"Ghost","base_spe":110},{"num":479,"name":"Rotom","type1":"Electric","type2":"Ghost","base_spe":91},{"num":479,"name":"Rotom-Heat","type1":"Electric","type2":"Fire","base_spe":86},{"num":479,"name":"Rotom-Wash","type1":"Electric","type2":"Water","base_spe":86},{"num":479,"name":"Rotom-Frost","type1":"Electric","type2":"Ice","base_spe":86},{"num":479,"name":"Rotom-Fan","type1":"Electric","type2":"Flying","base_spe":86},{"num":479,"name":"Rotom-Mow","type1":"Electric","type2":"Grass","base_spe":86},{"num":480,"name":"Uxie","type1":"Psychic","type2":null,"base_spe":95},{"num":481,"name":"Mesprit","type1":"Psychic","type2":null,"base_spe":80},{"num":482,"name":"Azelf","type1":"Psychic","type2":null,"base_spe":115},{"num":483,"name":"Dialga","type1":"Steel","type2":"Dragon","base_spe":90},{"num":483,"name":"Dialga-Origin","type1":"Steel","type2":"Dragon","base_spe":90},{"num":484,"name":"Palkia","type1":"Water","type2":"Dragon","base_spe":100},{"num":484,"name":"Palkia-Origin","type1":"Water","type2":"Dragon","base_spe":120},{"num":485,"name":"Heatran","type1":"Fire","type2":"Steel","base_spe":77},{"num":486,"name":"Regigigas","type1":"Normal","type2":null,"base_spe":100},{"num":487,"name":"Giratina","type1":"Ghost","type2":"Dragon","base_spe":90},{"num":487,"name":"Giratina-Origin","type1":"Ghost","type2":"Dragon","base_spe":90},{"num":488,"name":"Cresselia","type1":"Psychic","type2":null,"base_spe":85},{"num":489,"name":"Phione","type1":"Water","type2":null,"base_spe":80},{"num":490,"name":"Manaphy","type1":"Water","type2":null,"base_spe":100},{"num":491,"name":"Darkrai","type1":"Dark","type2":null,"base_spe":125},{"num":492,"name":"Shaymin","type1":"Grass","type2":null,"base_spe":100},{"num":492,"name":"Shaymin-Sky","type1":"Grass","type2":"Flying","base_spe":127},{"num":493,"name":"Arceus","type1":"Normal","type2":null,"base_spe":120},{"num":493,"name":"Arceus-Bug","type1":"Bug","type2":null,"base_spe":120},{"num":493,"name":"Arceus-Dark","type1":"Dark","type2":null,"base_spe":120},{"num":493,"name":"Arceus-Dragon","type1":"Dragon","type2":null,"base_spe":120},{"num":493,"name":"Arceus-Electric","type1":"Electric","type2":null,"base_spe":120},{"num":493,"name":"Arceus-Fairy","type1":"Fairy","type2":null,"base_spe":120},{"num":493,"name":"Arceus-Fighting","type1":"Fighting","type2":null,"base_spe":120},{"num":493,"name":"Arceus-Fire","type1":"Fire","type2":null,"base_spe":120},{"num":493,"name":"Arceus-Flying","type1":"Flying","type2":null,"base_spe":120},{"num":493,"name":"Arceus-Ghost","type1":"Ghost","type2":null,"base_spe":120},{"num":493,"name":"Arceus-Grass","type1":"Grass","type2":null,"base_spe":120},{"num":493,"name":"Arceus-Ground","type1":"Ground","type2":null,"base_spe":120},{"num":493,"name":"Arceus-Ice","type1":"Ice","type2":null,"base_spe":120},{"num":493,"name":"Arceus-Poison","type1":"Poison","type2":null,"base_spe":120},{"num":493,"name":"Arceus-Psychic","type1":"Psychic","type2":null,"base_spe":120},{"num":493,"name":"Arceus-Rock","type1":"Rock","type2":null,"base_spe":120},{"num":493,"name":"Arceus-Steel","type1":"Steel","type2":null,"base_spe":120},{"num":493,"name":"Arceus-Water","type1":"Water","type2":null,"base_spe":120},{"num":494,"name":"Victini","type1":"Psychic","type2":"Fire","base_spe":100},{"num":495,"name":"Snivy","type1":"Grass","type2":null,"base_spe":63},{"num":496,"name":"Servine","type1":"Grass","type2":null,"base_spe":83},{"num":497,"name":"Serperior","type1":"Grass","type2":null,"base_spe":113},{"num":498,"name":"Tepig","type1":"Fire","type2":null,"base_spe":45},{"num":499,"name":"Pignite","type1":"Fire","type2":"Fighting","base_spe":55},{"num":500,"name":"Emboar","type1":"Fire","type2":"Fighting","base_spe":65},{"num":501,"name":"Oshawott","type1":"Water","type2":null,"base_spe":45},{"num":502,"name":"Dewott","type1":"Water","type2":null,"base_spe":60},{"num":503,"name":"Samurott","type1":"Water","type2":null,"base_spe":70},{"num":503,"name":"Samurott-Hisui","type1":"Water","type2":"Dark","base_spe":85},{"num":504,"name":"Patrat","type1":"Normal","type2":null,"base_spe":42},{"num":505,"name":"Watchog","type1":"Normal","type2":null,"base_spe":77},{"num":506,"name":"Lillipup","type1":"Normal","type2":null,"base_spe":55},{"num":507,"name":"Herdier","type1":"Normal","type2":null,"base_spe":60},{"num":508,"name":"Stoutland","type1":"Normal","type2":null,"base_spe":80},{"num":509,"name":"Purrloin","type1":"Dark","type2":null,"base_spe":66},{"num":510,"name":"Liepard","type1":"Dark","type2":null,"base_spe":106},{"num":511,"name":"Pansage","type1":"Grass","type2":null,"base_spe":64},{"num":512,"name":"Simisage","type1":"Grass","type2":null,"base_spe":101},{"num":513,"name":"Pansear","type1":"Fire","type2":null,"base_spe":64},{"num":514,"name":"Simisear","type1":"Fire","type2":null,"base_spe":101},{"num":515,"name":"Panpour","type1":"Water","type2":null,"base_spe":64},{"num":516,"name":"Simipour","type1":"Water","type2":null,"base_spe":101},{"num":517,"name":"Munna","type1":"Psychic","type2":null,"base_spe":24},{"num":518,"name":"Musharna","type1":"Psychic","type2":null,"base_spe":29},{"num":519,"name":"Pidove","type1":"Normal","type2":"Flying","base_spe":43},{"num":520,"name":"Tranquill","type1":"Normal","type2":"Flying","base_spe":65},{"num":521,"name":"Unfezant","type1":"Normal","type2":"Flying","base_spe":93},{"num":522,"name":"Blitzle","type1":"Electric","type2":null,"base_spe":76},{"num":523,"name":"Zebstrika","type1":"Electric","type2":null,"base_spe":116},{"num":524,"name":"Roggenrola","type1":"Rock","type2":null,"base_spe":15},{"num":525,"name":"Boldore","type1":"Rock","type2":null,"base_spe":20},{"num":526,"name":"Gigalith","type1":"Rock","type2":null,"base_spe":25},{"num":527,"name":"Woobat","type1":"Psychic","type2":"Flying","base_spe":72},{"num":528,"name":"Swoobat","type1":"Psychic","type2":"Flying","base_spe":114},{"num":529,"name":"Drilbur","type1":"Ground","type2":null,"base_spe":68},{"num":530,"name":"Excadrill","type1":"Ground","type2":"Steel","base_spe":88},{"num":531,"name":"Audino","type1":"Normal","type2":null,"base_spe":50},{"num":532,"name":"Timburr","type1":"Fighting","type2":null,"base_spe":35},{"num":533,"name":"Gurdurr","type1":"Fighting","type2":null,"base_spe":40},{"num":534,"name":"Conkeldurr","type1":"Fighting","type2":null,"base_spe":45},{"num":535,"name":"Tympole","type1":"Water","type2":null,"base_spe":64},{"num":536,"name":"Palpitoad","type1":"Water","type2":"Ground","base_spe":69},{"num":537,"name":"Seismitoad","type1":"Water","type2":"Ground","base_spe":74},{"num":538,"name":"Throh","type1":"Fighting","type2":null,"base_spe":45},{"num":539,"name":"Sawk","type1":"Fighting","type2":null,"base_spe":85},{"num":540,"name":"Sewaddle","type1":"Bug","type2":"Grass","base_spe":42},{"num":541,"name":"Swadloon","type1":"Bug","type2":"Grass","base_spe":42},{"num":542,"name":"Leavanny","type1":"Bug","type2":"Grass","base_spe":92},{"num":543,"name":"Venipede","type1":"Bug","type2":"Poison","base_spe":57},{"num":544,"name":"Whirlipede","type1":"Bug","type2":"Poison","base_spe":47},{"num":545,"name":"Scolipede","type1":"Bug","type2":"Poison","base_spe":112},{"num":546,"name":"Cottonee","type1":"Grass","type2":"Fairy","base_spe":66},{"num":547,"name":"Whimsicott","type1":"Grass","type2":"Fairy","base_spe":116},{"num":548,"name":"Petilil","type1":"Grass","type2":null,"base_spe":30},{"num":549,"name":"Lilligant","type1":"Grass","type2":null,"base_spe":90},{"num":549,"name":"Lilligant-Hisui","type1":"Grass","type2":"Fighting","base_spe":105},{"num":550,"name":"Basculin","type1":"Water","type2":null,"base_spe":98},{"num":551,"name":"Sandile","type1":"Ground","type2":"Dark","base_spe":65},{"num":552,"name":"Krokorok","type1":"Ground","type2":"Dark","base_spe":74},{"num":553,"name":"Krookodile","type1":"Ground","type2":"Dark","base_spe":92},{"num":554,"name":"Darumaka","type1":"Fire","type2":null,"base_spe":50},{"num":554,"name":"Darumaka-Galar","type1":"Ice","type2":null,"base_spe":50},{"num":555,"name":"Darmanitan","type1":"Fire","type2":null,"base_spe":95},{"num":555,"name":"Darmanitan-Zen","type1":"Fire","type2":"Psychic","base_spe":55},{"num":555,"name":"Darmanitan-Galar","type1":"Ice","type2":null,"base_spe":95},{"num":555,"name":"Darmanitan-Galar-Zen","type1":"Ice","type2":"Fire","base_spe":135},{"num":556,"name":"Maractus","type1":"Grass","type2":null,"base_spe":60},{"num":557,"name":"Dwebble","type1":"Bug","type2":"Rock","base_spe":55},{"num":558,"name":"Crustle","type1":"Bug","type2":"Rock","base_spe":45},{"num":559,"name":"Scraggy","type1":"Dark","type2":"Fighting","base_spe":48},{"num":560,"name":"Scrafty","type1":"Dark","type2":"Fighting","base_spe":58},{"num":561,"name":"Sigilyph","type1":"Psychic","type2":"Flying","base_spe":97},{"num":562,"name":"Yamask","type1":"Ghost","type2":null,"base_spe":30},{"num":562,"name":"Yamask-Galar","type1":"Ground","type2":"Ghost","base_spe":30},{"num":563,"name":"Cofagrigus","type1":"Ghost","type2":null,"base_spe":30},{"num":564,"name":"Tirtouga","type1":"Water","type2":"Rock","base_spe":22},{"num":565,"name":"Carracosta","type1":"Water","type2":"Rock","base_spe":32},{"num":566,"name":"Archen","type1":"Rock","type2":"Flying","base_spe":70},{"num":567,"name":"Archeops","type1":"Rock","type2":"Flying","base_spe":110},{"num":568,"name":"Trubbish","type1":"Poison","type2":null,"base_spe":65},{"num":569,"name":"Garbodor","type1":"Poison","type2":null,"base_spe":75},{"num":570,"name":"Zorua","type1":"Dark","type2":null,"base_spe":65},{"num":570,"name":"Zorua-Hisui","type1":"Normal","type2":"Ghost","base_spe":70},{"num":571,"name":"Zoroark","type1":"Dark","type2":null,"base_spe":105},{"num":571,"name":"Zoroark-Hisui","type1":"Normal","type2":"Ghost","base_spe":110},{"num":572,"name":"Minccino","type1":"Normal","type2":null,"base_spe":75},{"num":573,"name":"Cinccino","type1":"Normal","type2":null,"base_spe":115},{"num":574,"name":"Gothita","type1":"Psychic","type2":null,"base_spe":45},{"num":575,"name":"Gothorita","type1":"Psychic","type2":null,"base_spe":55},{"num":576,"name":"Gothitelle","type1":"Psychic","type2":null,"base_spe":65},{"num":577,"name":"Solosis","type1":"Psychic","type2":null,"base_spe":20},{"num":578,"name":"Duosion","type1":"Psychic","type2":null,"base_spe":30},{"num":579,"name":"Reuniclus","type1":"Psychic","type2":null,"base_spe":30},{"num":580,"name":"Ducklett","type1":"Water","type2":"Flying","base_spe":55},{"num":581,"name":"Swanna","type1":"Water","type2":"Flying","base_spe":98},{"num":582,"name":"Vanillite","type1":"Ice","type2":null,"base_spe":44},{"num":583,"name":"Vanillish","type1":"Ice","type2":null,"base_spe":59},{"num":584,"name":"Vanilluxe","type1":"Ice","type2":null,"base_spe":79},{"num":585,"name":"Deerling","type1":"Normal","type2":"Grass","base_spe":75},{"num":586,"name":"Sawsbuck","type1":"Normal","type2":"Grass","base_spe":95},{"num":587,"name":"Emolga","type1":"Electric","type2":"Flying","base_spe":103},{"num":588,"name":"Karrablast","type1":"Bug","type2":null,"base_spe":60},{"num":589,"name":"Escavalier","type1":"Bug","type2":"Steel","base_spe":20},{"num":590,"name":"Foongus","type1":"Grass","type2":"Poison","base_spe":15},{"num":591,"name":"Amoonguss","type1":"Grass","type2":"Poison","base_spe":30},{"num":592,"name":"Frillish","type1":"Water","type2":"Ghost","base_spe":40},{"num":593,"name":"Jellicent","type1":"Water","type2":"Ghost","base_spe":60},{"num":594,"name":"Alomomola","type1":"Water","type2":null,"base_spe":65},{"num":595,"name":"Joltik","type1":"Bug","type2":"Electric","base_spe":65},{"num":596,"name":"Galvantula","type1":"Bug","type2":"Electric","base_spe":108},{"num":597,"name":"Ferroseed","type1":"Grass","type2":"Steel","base_spe":10},{"num":598,"name":"Ferrothorn","type1":"Grass","type2":"Steel","base_spe":20},{"num":599,"name":"Klink","type1":"Steel","type2":null,"base_spe":30},{"num":600,"name":"Klang","type1":"Steel","type2":null,"base_spe":50},{"num":601,"name":"Klinklang","type1":"Steel","type2":null,"base_spe":90},{"num":602,"name":"Tynamo","type1":"Electric","type2":null,"base_spe":60},{"num":603,"name":"Eelektrik","type1":"Electric","type2":null,"base_spe":40},{"num":604,"name":"Eelektross","type1":"Electric","type2":null,"base_spe":50},{"num":605,"name":"Elgyem","type1":"Psychic","type2":null,"base_spe":30},{"num":606,"name":"Beheeyem","type1":"Psychic","type2":null,"base_spe":40},{"num":607,"name":"Litwick","type1":"Ghost","type2":"Fire","base_spe":20},{"num":608,"name":"Lampent","type1":"Ghost","type2":"Fire","base_spe":55},{"num":609,"name":"Chandelure","type1":"Ghost","type2":"Fire","base_spe":80},{"num":610,"name":"Axew","type1":"Dragon","type2":null,"base_spe":57},{"num":611,"name":"Fraxure","type1":"Dragon","type2":null,"base_spe":67},{"num":612,"name":"Haxorus","type1":"Dragon","type2":null,"base_spe":97},{"num":613,"name":"Cubchoo","type1":"Ice","type2":null,"base_spe":40},{"num":614,"name":"Beartic","type1":"Ice","type2":null,"base_spe":50},{"num":615,"name":"Cryogonal","type1":"Ice","type2":null,"base_spe":105},{"num":616,"name":"Shelmet","type1":"Bug","type2":null,"base_spe":25},{"num":617,"name":"Accelgor","type1":"Bug","type2":null,"base_spe":145},{"num":618,"name":"Stunfisk","type1":"Ground","type2":"Electric","base_spe":32},{"num":618,"name":"Stunfisk-Galar","type1":"Ground","type2":"Steel","base_spe":32},{"num":619,"name":"Mienfoo","type1":"Fighting","type2":null,"base_spe":65},{"num":620,"name":"Mienshao","type1":"Fighting","type2":null,"base_spe":105},{"num":621,"name":"Druddigon","type1":"Dragon","type2":null,"base_spe":48},{"num":622,"name":"Golett","type1":"Ground","type2":"Ghost","base_spe":35},{"num":623,"name":"Golurk","type1":"Ground","type2":"Ghost","base_spe":55},{"num":624,"name":"Pawniard","type1":"Dark","type2":"Steel","base_spe":60},{"num":625,"name":"Bisharp","type1":"Dark","type2":"Steel","base_spe":70},{"num":626,"name":"Bouffalant","type1":"Normal","type2":null,"base_spe":55},{"num":627,"name":"Rufflet","type1":"Normal","type2":"Flying","base_spe":60},{"num":628,"name":"Braviary","type1":"Normal","type2":"Flying","base_spe":80},{"num":628,"name":"Braviary-Hisui","type1":"Psychic","type2":"Flying","base_spe":65},{"num":629,"name":"Vullaby","type1":"Dark","type2":"Flying","base_spe":60},{"num":630,"name":"Mandibuzz","type1":"Dark","type2":"Flying","base_spe":80},{"num":631,"name":"Heatmor","type1":"Fire","type2":null,"base_spe":65},{"num":632,"name":"Durant","type1":"Bug","type2":"Steel","base_spe":109},{"num":633,"name":"Deino","type1":"Dark","type2":"Dragon","base_spe":38},{"num":634,"name":"Zweilous","type1":"Dark","type2":"Dragon","base_spe":58},{"num":635,"name":"Hydreigon","type1":"Dark","type2":"Dragon","base_spe":98},{"num":636,"name":"Larvesta","type1":"Bug","type2":"Fire","base_spe":60},{"num":637,"name":"Volcarona","type1":"Bug","type2":"Fire","base_spe":100},{"num":638,"name":"Cobalion","type1":"Steel","type2":"Fighting","base_spe":108},{"num":639,"name":"Terrakion","type1":"Rock","type2":"Fighting","base_spe":108},{"num":640,"name":"Virizion","type1":"Grass","type2":"Fighting","base_spe":108},{"num":641,"name":"Tornadus","type1":"Flying","type2":null,"base_spe":111},{"num":641,"name":"Tornadus-Therian","type1":"Flying","type2":null,"base_spe":121},{"num":642,"name":"Thundurus","type1":"Electric","type2":"Flying","base_spe":111},{"num":642,"name":"Thundurus-Therian","type1":"Electric","type2":"Flying","base_spe":101},{"num":643,"name":"Reshiram","type1":"Dragon","type2":"Fire","base_spe":90},{"num":644,"name":"Zekrom","type1":"Dragon","type2":"Electric","base_spe":90},{"num":645,"name":"Landorus","type1":"Ground","type2":"Flying","base_spe":101},{"num":645,"name":"Landorus-Therian","type1":"Ground","type2":"Flying","base_spe":91},{"num":646,"name":"Kyurem","type1":"Dragon","type2":"Ice","base_spe":95},{"num":646,"name":"Kyurem-Black","type1":"Dragon","type2":"Ice","base_spe":95},{"num":646,"name":"Kyurem-White","type1":"Dragon","type2":"Ice","base_spe":95},{"num":647,"name":"Keldeo","type1":"Water","type2":"Fighting","base_spe":108},{"num":648,"name":"Meloetta","type1":"Normal","type2":"Psychic","base_spe":90},{"num":648,"name":"Meloetta-Pirouette","type1":"Normal","type2":"Fighting","base_spe":128},{"num":649,"name":"Genesect","type1":"Bug","type2":"Steel","base_spe":99},{"num":650,"name":"Chespin","type1":"Grass","type2":null,"base_spe":38},{"num":651,"name":"Quilladin","type1":"Grass","type2":null,"base_spe":57},{"num":652,"name":"Chesnaught","type1":"Grass","type2":"Fighting","base_spe":64},{"num":653,"name":"Fennekin","type1":"Fire","type2":null,"base_spe":60},{"num":654,"name":"Braixen","type1":"Fire","type2":null,"base_spe":73},{"num":655,"name":"Delphox","type1":"Fire","type2":"Psychic","base_spe":104},{"num":656,"name":"Froakie","type1":"Water","type2":null,"base_spe":71},{"num":657,"name":"Frogadier","type1":"Water","type2":null,"base_spe":97},{"num":658,"name":"Greninja","type1":"Water","type2":"Dark","base_spe":122},{"num":658,"name":"Greninja-Ash","type1":"Water","type2":"Dark","base_spe":132},{"num":659,"name":"Bunnelby","type1":"Normal","type2":null,"base_spe":57},{"num":660,"name":"Diggersby","type1":"Normal","type2":"Ground","base_spe":78},{"num":661,"name":"Fletchling","type1":"Normal","type2":"Flying","base_spe":62},{"num":662,"name":"Fletchinder","type1":"Fire","type2":"Flying","base_spe":84},{"num":663,"name":"Talonflame","type1":"Fire","type2":"Flying","base_spe":126},{"num":664,"name":"Scatterbug","type1":"Bug","type2":null,"base_spe":35},{"num":665,"name":"Spewpa","type1":"Bug","type2":null,"base_spe":29},{"num":666,"name":"Vivillon","type1":"Bug","type2":"Flying","base_spe":89},{"num":667,"name":"Litleo","type1":"Fire","type2":"Normal","base_spe":72},{"num":668,"name":"Pyroar","type1":"Fire","type2":"Normal","base_spe":106},{"num":669,"name":"Flabe\u0301be\u0301","type1":"Fairy","type2":null,"base_spe":42},{"num":670,"name":"Floette","type1":"Fairy","type2":null,"base_spe":52},{"num":670,"name":"Floette-Eternal","type1":"Fairy","type2":null,"base_spe":92},{"num":671,"name":"Florges","type1":"Fairy","type2":null,"base_spe":75},{"num":672,"name":"Skiddo","type1":"Grass","type2":null,"base_spe":52},{"num":673,"name":"Gogoat","type1":"Grass","type2":null,"base_spe":68},{"num":674,"name":"Pancham","type1":"Fighting","type2":null,"base_spe":43},{"num":675,"name":"Pangoro","type1":"Fighting","type2":"Dark","base_spe":58},{"num":676,"name":"Furfrou","type1":"Normal","type2":null,"base_spe":102},{"num":677,"name":"Espurr","type1":"Psychic","type2":null,"base_spe":68},{"num":678,"name":"Meowstic","type1":"Psychic","type2":null,"base_spe":104},{"num":679,"name":"Honedge","type1":"Steel","type2":"Ghost","base_spe":28},{"num":680,"name":"Doublade","type1":"Steel","type2":"Ghost","base_spe":35},{"num":681,"name":"Aegislash","type1":"Steel","type2":"Ghost","base_spe":60},{"num":681,"name":"Aegislash-Blade","type1":"Steel","type2":"Ghost","base_spe":60},{"num":682,"name":"Spritzee","type1":"Fairy","type2":null,"base_spe":23},{"num":683,"name":"Aromatisse","type1":"Fairy","type2":null,"base_spe":29},{"num":684,"name":"Swirlix","type1":"Fairy","type2":null,"base_spe":49},{"num":685,"name":"Slurpuff","type1":"Fairy","type2":null,"base_spe":72},{"num":686,"name":"Inkay","type1":"Dark","type2":"Psychic","base_spe":45},{"num":687,"name":"Malamar","type1":"Dark","type2":"Psychic","base_spe":73},{"num":688,"name":"Binacle","type1":"Rock","type2":"Water","base_spe":50},{"num":689,"name":"Barbaracle","type1":"Rock","type2":"Water","base_spe":68},{"num":690,"name":"Skrelp","type1":"Poison","type2":"Water","base_spe":30},{"num":691,"name":"Dragalge","type1":"Poison","type2":"Dragon","base_spe":44},{"num":692,"name":"Clauncher","type1":"Water","type2":null,"base_spe":44},{"num":693,"name":"Clawitzer","type1":"Water","type2":null,"base_spe":59},{"num":694,"name":"Helioptile","type1":"Electric","type2":"Normal","base_spe":70},{"num":695,"name":"Heliolisk","type1":"Electric","type2":"Normal","base_spe":109},{"num":696,"name":"Tyrunt","type1":"Rock","type2":"Dragon","base_spe":48},{"num":697,"name":"Tyrantrum","type1":"Rock","type2":"Dragon","base_spe":71},{"num":698,"name":"Amaura","type1":"Rock","type2":"Ice","base_spe":46},{"num":699,"name":"Aurorus","type1":"Rock","type2":"Ice","base_spe":58},{"num":700,"name":"Sylveon","type1":"Fairy","type2":null,"base_spe":60},{"num":701,"name":"Hawlucha","type1":"Fighting","type2":"Flying","base_spe":118},{"num":702,"name":"Dedenne","type1":"Electric","type2":"Fairy","base_spe":101},{"num":703,"name":"Carbink","type1":"Rock","type2":"Fairy","base_spe":50},{"num":704,"name":"Goomy","type1":"Dragon","type2":null,"base_spe":40},{"num":705,"name":"Sliggoo","type1":"Dragon","type2":null,"base_spe":60},{"num":705,"name":"Sliggoo-Hisui","type1":"Steel","type2":"Dragon","base_spe":40},{"num":706,"name":"Goodra","type1":"Dragon","type2":null,"base_spe":80},{"num":706,"name":"Goodra-Hisui","type1":"Steel","type2":"Dragon","base_spe":60},{"num":707,"name":"Klefki","type1":"Steel","type2":"Fairy","base_spe":75},{"num":708,"name":"Phantump","type1":"Ghost","type2":"Grass","base_spe":38},{"num":709,"name":"Trevenant","type1":"Ghost","type2":"Grass","base_spe":56},{"num":710,"name":"Pumpkaboo","type1":"Ghost","type2":"Grass","base_spe":51},{"num":710,"name":"Pumpkaboo-Small","type1":"Ghost","type2":"Grass","base_spe":56},{"num":710,"name":"Pumpkaboo-Large","type1":"Ghost","type2":"Grass","base_spe":46},{"num":710,"name":"Pumpkaboo-Super","type1":"Ghost","type2":"Grass","base_spe":41},{"num":711,"name":"Gourgeist","type1":"Ghost","type2":"Grass","base_spe":84},{"num":711,"name":"Gourgeist-Small","type1":"Ghost","type2":"Grass","base_spe":99},{"num":711,"name":"Gourgeist-Large","type1":"Ghost","type2":"Grass","base_spe":69},{"num":711,"name":"Gourgeist-Super","type1":"Ghost","type2":"Grass","base_spe":54},{"num":712,"name":"Bergmite","type1":"Ice","type2":null,"base_spe":28},{"num":713,"name":"Avalugg","type1":"Ice","type2":null,"base_spe":28},{"num":713,"name":"Avalugg-Hisui","type1":"Ice","type2":"Rock","base_spe":38},{"num":714,"name":"Noibat","type1":"Flying","type2":"Dragon","base_spe":55},{"num":715,"name":"Noivern","type1":"Flying","type2":"Dragon","base_spe":123},{"num":716,"name":"Xerneas","type1":"Fairy","type2":null,"base_spe":99},{"num":717,"name":"Yveltal","type1":"Dark","type2":"Flying","base_spe":99},{"num":718,"name":"Zygarde","type1":"Dragon","type2":"Ground","base_spe":95},{"num":718,"name":"Zygarde-10%","type1":"Dragon","type2":"Ground","base_spe":115},{"num":718,"name":"Zygarde-Complete","type1":"Dragon","type2":"Ground","base_spe":85},{"num":719,"name":"Diancie","type1":"Rock","type2":"Fairy","base_spe":50},{"num":720,"name":"Hoopa","type1":"Psychic","type2":"Ghost","base_spe":70},{"num":720,"name":"Hoopa-Unbound","type1":"Psychic","type2":"Dark","base_spe":80},{"num":721,"name":"Volcanion","type1":"Fire","type2":"Water","base_spe":70},{"num":722,"name":"Rowlet","type1":"Grass","type2":"Flying","base_spe":42},{"num":723,"name":"Dartrix","type1":"Grass","type2":"Flying","base_spe":52},{"num":724,"name":"Decidueye","type1":"Grass","type2":"Ghost","base_spe":70},{"num":724,"name":"Decidueye-Hisui","type1":"Grass","type2":"Fighting","base_spe":60},{"num":725,"name":"Litten","type1":"Fire","type2":null,"base_spe":70},{"num":726,"name":"Torracat","type1":"Fire","type2":null,"base_spe":90},{"num":727,"name":"Incineroar","type1":"Fire","type2":"Dark","base_spe":60},{"num":728,"name":"Popplio","type1":"Water","type2":null,"base_spe":40},{"num":729,"name":"Brionne","type1":"Water","type2":null,"base_spe":50},{"num":730,"name":"Primarina","type1":"Water","type2":"Fairy","base_spe":60},{"num":731,"name":"Pikipek","type1":"Normal","type2":"Flying","base_spe":65},{"num":732,"name":"Trumbeak","type1":"Normal","type2":"Flying","base_spe":75},{"num":733,"name":"Toucannon","type1":"Normal","type2":"Flying","base_spe":60},{"num":734,"name":"Yungoos","type1":"Normal","type2":null,"base_spe":45},{"num":735,"name":"Gumshoos","type1":"Normal","type2":null,"base_spe":45},{"num":736,"name":"Grubbin","type1":"Bug","type2":null,"base_spe":46},{"num":737,"name":"Charjabug","type1":"Bug","type2":"Electric","base_spe":36},{"num":738,"name":"Vikavolt","type1":"Bug","type2":"Electric","base_spe":43},{"num":739,"name":"Crabrawler","type1":"Fighting","type2":null,"base_spe":63},{"num":740,"name":"Crabominable","type1":"Fighting","type2":"Ice","base_spe":43},{"num":741,"name":"Oricorio","type1":"Fire","type2":"Flying","base_spe":93},{"num":741,"name":"Oricorio-Pom-Pom","type1":"Electric","type2":"Flying","base_spe":93},{"num":741,"name":"Oricorio-Pa'u","type1":"Psychic","type2":"Flying","base_spe":93},{"num":741,"name":"Oricorio-Sensu","type1":"Ghost","type2":"Flying","base_spe":93},{"num":742,"name":"Cutiefly","type1":"Bug","type2":"Fairy","base_spe":84},{"num":743,"name":"Ribombee","type1":"Bug","type2":"Fairy","base_spe":124},{"num":744,"name":"Rockruff","type1":"Rock","type2":null,"base_spe":60},{"num":745,"name":"Lycanroc","type1":"Rock","type2":null,"base_spe":112},{"num":745,"name":"Lycanroc-Midnight","type1":"Rock","type2":null,"base_spe":82},{"num":745,"name":"Lycanroc-Dusk","type1":"Rock","type2":null,"base_spe":110},{"num":746,"name":"Wishiwashi","type1":"Water","type2":null,"base_spe":40},{"num":746,"name":"Wishiwashi-School","type1":"Water","type2":null,"base_spe":30},{"num":747,"name":"Mareanie","type1":"Poison","type2":"Water","base_spe":45},{"num":748,"name":"Toxapex","type1":"Poison","type2":"Water","base_spe":35},{"num":749,"name":"Mudbray","type1":"Ground","type2":null,"base_spe":45},{"num":750,"name":"Mudsdale","type1":"Ground","type2":null,"base_spe":35},{"num":751,"name":"Dewpider","type1":"Water","type2":"Bug","base_spe":27},{"num":752,"name":"Araquanid","type1":"Water","type2":"Bug","base_spe":42},{"num":753,"name":"Fomantis","type1":"Grass","type2":null,"base_spe":35},{"num":754,"name":"Lurantis","type1":"Grass","type2":null,"base_spe":45},{"num":755,"name":"Morelull","type1":"Grass","type2":"Fairy","base_spe":15},{"num":756,"name":"Shiinotic","type1":"Grass","type2":"Fairy","base_spe":30},{"num":757,"name":"Salandit","type1":"Poison","type2":"Fire","base_spe":77},{"num":758,"name":"Salazzle","type1":"Poison","type2":"Fire","base_spe":117},{"num":759,"name":"Stufful","type1":"Normal","type2":"Fighting","base_spe":50},{"num":760,"name":"Bewear","type1":"Normal","type2":"Fighting","base_spe":60},{"num":761,"name":"Bounsweet","type1":"Grass","type2":null,"base_spe":32},{"num":762,"name":"Steenee","type1":"Grass","type2":null,"base_spe":62},{"num":763,"name":"Tsareena","type1":"Grass","type2":null,"base_spe":72},{"num":764,"name":"Comfey","type1":"Fairy","type2":null,"base_spe":100},{"num":765,"name":"Oranguru","type1":"Normal","type2":"Psychic","base_spe":60},{"num":766,"name":"Passimian","type1":"Fighting","type2":null,"base_spe":80},{"num":767,"name":"Wimpod","type1":"Bug","type2":"Water","base_spe":80},{"num":768,"name":"Golisopod","type1":"Bug","type2":"Water","base_spe":40},{"num":769,"name":"Sandygast","type1":"Ghost","type2":"Ground","base_spe":15},{"num":770,"name":"Palossand","type1":"Ghost","type2":"Ground","base_spe":35},{"num":771,"name":"Pyukumuku","type1":"Water","type2":null,"base_spe":5},{"num":772,"name":"Type: Null","type1":"Normal","type2":null,"base_spe":59},{"num":773,"name":"Silvally","type1":"Normal","type2":null,"base_spe":95},{"num":773,"name":"Silvally-Bug","type1":"Bug","type2":null,"base_spe":95},{"num":773,"name":"Silvally-Dark","type1":"Dark","type2":null,"base_spe":95},{"num":773,"name":"Silvally-Dragon","type1":"Dragon","type2":null,"base_spe":95},{"num":773,"name":"Silvally-Electric","type1":"Electric","type2":null,"base_spe":95},{"num":773,"name":"Silvally-Fairy","type1":"Fairy","type2":null,"base_spe":95},{"num":773,"name":"Silvally-Fighting","type1":"Fighting","type2":null,"base_spe":95},{"num":773,"name":"Silvally-Fire","type1":"Fire","type2":null,"base_spe":95},{"num":773,"name":"Silvally-Flying","type1":"Flying","type2":null,"base_spe":95},{"num":773,"name":"Silvally-Ghost","type1":"Ghost","type2":null,"base_spe":95},{"num":773,"name":"Silvally-Grass","type1":"Grass","type2":null,"base_spe":95},{"num":773,"name":"Silvally-Ground","type1":"Ground","type2":null,"base_spe":95},{"num":773,"name":"Silvally-Ice","type1":"Ice","type2":null,"base_spe":95},{"num":773,"name":"Silvally-Poison","type1":"Poison","type2":null,"base_spe":95},{"num":773,"name":"Silvally-Psychic","type1":"Psychic","type2":null,"base_spe":95},{"num":773,"name":"Silvally-Rock","type1":"Rock","type2":null,"base_spe":95},{"num":773,"name":"Silvally-Steel","type1":"Steel","type2":null,"base_spe":95},{"num":773,"name":"Silvally-Water","type1":"Water","type2":null,"base_spe":95},{"num":774,"name":"Minior","type1":"Rock","type2":"Flying","base_spe":120},{"num":774,"name":"Minior-Meteor","type1":"Rock","type2":"Flying","base_spe":60},{"num":775,"name":"Komala","type1":"Normal","type2":null,"base_spe":65},{"num":776,"name":"Turtonator","type1":"Fire","type2":"Dragon","base_spe":36},{"num":777,"name":"Togedemaru","type1":"Electric","type2":"Steel","base_spe":96},{"num":778,"name":"Mimikyu","type1":"Ghost","type2":"Fairy","base_spe":96},{"num":779,"name":"Bruxish","type1":"Water","type2":"Psychic","base_spe":92},{"num":780,"name":"Drampa","type1":"Normal","type2":"Dragon","base_spe":36},{"num":781,"name":"Dhelmise","type1":"Ghost","type2":"Grass","base_spe":40},{"num":782,"name":"Jangmo-o","type1":"Dragon","type2":null,"base_spe":45},{"num":783,"name":"Hakamo-o","type1":"Dragon","type2":"Fighting","base_spe":65},{"num":784,"name":"Kommo-o","type1":"Dragon","type2":"Fighting","base_spe":85},{"num":785,"name":"Tapu Koko","type1":"Electric","type2":"Fairy","base_spe":130},{"num":786,"name":"Tapu Lele","type1":"Psychic","type2":"Fairy","base_spe":95},{"num":787,"name":"Tapu Bulu","type1":"Grass","type2":"Fairy","base_spe":75},{"num":788,"name":"Tapu Fini","type1":"Water","type2":"Fairy","base_spe":85},{"num":789,"name":"Cosmog","type1":"Psychic","type2":null,"base_spe":37},{"num":790,"name":"Cosmoem","type1":"Psychic","type2":null,"base_spe":37},{"num":791,"name":"Solgaleo","type1":"Psychic","type2":"Steel","base_spe":97},{"num":792,"name":"Lunala","type1":"Psychic","type2":"Ghost","base_spe":97},{"num":793,"name":"Nihilego","type1":"Rock","type2":"Poison","base_spe":103},{"num":794,"name":"Buzzwole","type1":"Bug","type2":"Fighting","base_spe":79},{"num":795,"name":"Pheromosa","type1":"Bug","type2":"Fighting","base_spe":151},{"num":796,"name":"Xurkitree","type1":"Electric","type2":null,"base_spe":83},{"num":797,"name":"Celesteela","type1":"Steel","type2":"Flying","base_spe":61},{"num":798,"name":"Kartana","type1":"Grass","type2":"Steel","base_spe":109},{"num":799,"name":"Guzzlord","type1":"Dark","type2":"Dragon","base_spe":43},{"num":800,"name":"Necrozma","type1":"Psychic","type2":null,"base_spe":79},{"num":800,"name":"Necrozma-Dusk-Mane","type1":"Psychic","type2":"Steel","base_spe":77},{"num":800,"name":"Necrozma-Dawn-Wings","type1":"Psychic","type2":"Ghost","base_spe":77},{"num":800,"name":"Necrozma-Ultra","type1":"Psychic","type2":"Dragon","base_spe":129},{"num":801,"name":"Magearna","type1":"Steel","type2":"Fairy","base_spe":65},{"num":802,"name":"Marshadow","type1":"Fighting","type2":"Ghost","base_spe":125},{"num":803,"name":"Poipole","type1":"Poison","type2":null,"base_spe":73},{"num":804,"name":"Naganadel","type1":"Poison","type2":"Dragon","base_spe":121},{"num":805,"name":"Stakataka","type1":"Rock","type2":"Steel","base_spe":13},{"num":806,"name":"Blacephalon","type1":"Fire","type2":"Ghost","base_spe":107},{"num":807,"name":"Zeraora","type1":"Electric","type2":null,"base_spe":143},{"num":808,"name":"Meltan","type1":"Steel","type2":null,"base_spe":34},{"num":809,"name":"Melmetal","type1":"Steel","type2":null,"base_spe":34},{"num":810,"name":"Grookey","type1":"Grass","type2":null,"base_spe":65},{"num":811,"name":"Thwackey","type1":"Grass","type2":null,"base_spe":80},{"num":812,"name":"Rillaboom","type1":"Grass","type2":null,"base_spe":85},{"num":813,"name":"Scorbunny","type1":"Fire","type2":null,"base_spe":69},{"num":814,"name":"Raboot","type1":"Fire","type2":null,"base_spe":94},{"num":815,"name":"Cinderace","type1":"Fire","type2":null,"base_spe":119},{"num":816,"name":"Sobble","type1":"Water","type2":null,"base_spe":70},{"num":817,"name":"Drizzile","type1":"Water","type2":null,"base_spe":90},{"num":818,"name":"Inteleon","type1":"Water","type2":null,"base_spe":120},{"num":819,"name":"Skwovet","type1":"Normal","type2":null,"base_spe":25},{"num":820,"name":"Greedent","type1":"Normal","type2":null,"base_spe":20},{"num":821,"name":"Rookidee","type1":"Flying","type2":null,"base_spe":57},{"num":822,"name":"Corvisquire","type1":"Flying","type2":null,"base_spe":77},{"num":823,"name":"Corviknight","type1":"Flying","type2":"Steel","base_spe":67},{"num":824,"name":"Blipbug","type1":"Bug","type2":null,"base_spe":45},{"num":825,"name":"Dottler","type1":"Bug","type2":"Psychic","base_spe":30},{"num":826,"name":"Orbeetle","type1":"Bug","type2":"Psychic","base_spe":90},{"num":827,"name":"Nickit","type1":"Dark","type2":null,"base_spe":50},{"num":828,"name":"Thievul","type1":"Dark","type2":null,"base_spe":90},{"num":829,"name":"Gossifleur","type1":"Grass","type2":null,"base_spe":10},{"num":830,"name":"Eldegoss","type1":"Grass","type2":null,"base_spe":60},{"num":831,"name":"Wooloo","type1":"Normal","type2":null,"base_spe":48},{"num":832,"name":"Dubwool","type1":"Normal","type2":null,"base_spe":88},{"num":833,"name":"Chewtle","type1":"Water","type2":null,"base_spe":44},{"num":834,"name":"Drednaw","type1":"Water","type2":"Rock","base_spe":74},{"num":835,"name":"Yamper","type1":"Electric","type2":null,"base_spe":26},{"num":836,"name":"Boltund","type1":"Electric","type2":null,"base_spe":121},{"num":837,"name":"Rolycoly","type1":"Rock","type2":null,"base_spe":30},{"num":838,"name":"Carkol","type1":"Rock","type2":"Fire","base_spe":50},{"num":839,"name":"Coalossal","type1":"Rock","type2":"Fire","base_spe":30},{"num":840,"name":"Applin","type1":"Grass","type2":"Dragon","base_spe":20},{"num":841,"name":"Flapple","type1":"Grass","type2":"Dragon","base_spe":70},{"num":842,"name":"Appletun","type1":"Grass","type2":"Dragon","base_spe":30},{"num":843,"name":"Silicobra","type1":"Ground","type2":null,"base_spe":46},{"num":844,"name":"Sandaconda","type1":"Ground","type2":null,"base_spe":71},{"num":845,"name":"Cramorant","type1":"Flying","type2":"Water","base_spe":85},{"num":846,"name":"Arrokuda","type1":"Water","type2":null,"base_spe":66},{"num":847,"name":"Barraskewda","type1":"Water","type2":null,"base_spe":136},{"num":848,"name":"Toxel","type1":"Electric","type2":"Poison","base_spe":40},{"num":849,"name":"Toxtricity","type1":"Electric","type2":"Poison","base_spe":75},{"num":850,"name":"Sizzlipede","type1":"Fire","type2":"Bug","base_spe":45},{"num":851,"name":"Centiskorch","type1":"Fire","type2":"Bug","base_spe":65},{"num":852,"name":"Clobbopus","type1":"Fighting","type2":null,"base_spe":32},{"num":853,"name":"Grapploct","type1":"Fighting","type2":null,"base_spe":42},{"num":854,"name":"Sinistea","type1":"Ghost","type2":null,"base_spe":50},{"num":855,"name":"Polteageist","type1":"Ghost","type2":null,"base_spe":70},{"num":856,"name":"Hatenna","type1":"Psychic","type2":null,"base_spe":39},{"num":857,"name":"Hattrem","type1":"Psychic","type2":null,"base_spe":49},{"num":858,"name":"Hatterene","type1":"Psychic","type2":"Fairy","base_spe":29},{"num":859,"name":"Impidimp","type1":"Dark","type2":"Fairy","base_spe":50},{"num":860,"name":"Morgrem","type1":"Dark","type2":"Fairy","base_spe":70},{"num":861,"name":"Grimmsnarl","type1":"Dark","type2":"Fairy","base_spe":60},{"num":862,"name":"Obstagoon","type1":"Dark","type2":"Normal","base_spe":95},{"num":863,"name":"Perrserker","type1":"Steel","type2":null,"base_spe":50},{"num":864,"name":"Cursola","type1":"Ghost","type2":null,"base_spe":30},{"num":865,"name":"Sirfetch\u2019d","type1":"Fighting","type2":null,"base_spe":65},{"num":866,"name":"Mr. Rime","type1":"Ice","type2":"Psychic","base_spe":70},{"num":867,"name":"Runerigus","type1":"Ground","type2":"Ghost","base_spe":30},{"num":868,"name":"Milcery","type1":"Fairy","type2":null,"base_spe":34},{"num":869,"name":"Alcremie","type1":"Fairy","type2":null,"base_spe":64},{"num":870,"name":"Falinks","type1":"Fighting","type2":null,"base_spe":75},{"num":871,"name":"Pincurchin","type1":"Electric","type2":null,"base_spe":15},{"num":872,"name":"Snom","type1":"Ice","type2":"Bug","base_spe":20},{"num":873,"name":"Frosmoth","type1":"Ice","type2":"Bug","base_spe":65},{"num":874,"name":"Stonjourner","type1":"Rock","type2":null,"base_spe":70},{"num":875,"name":"Eiscue","type1":"Ice","type2":null,"base_spe":50},{"num":875,"name":"Eiscue-Noice","type1":"Ice","type2":null,"base_spe":130},{"num":876,"name":"Indeedee","type1":"Psychic","type2":"Normal","base_spe":95},{"num":876,"name":"Indeedee-F","type1":"Psychic","type2":"Normal","base_spe":85},{"num":877,"name":"Morpeko","type1":"Electric","type2":"Dark","base_spe":97},{"num":878,"name":"Cufant","type1":"Steel","type2":null,"base_spe":40},{"num":879,"name":"Copperajah","type1":"Steel","type2":null,"base_spe":30},{"num":880,"name":"Dracozolt","type1":"Electric","type2":"Dragon","base_spe":75},{"num":881,"name":"Arctozolt","type1":"Electric","type2":"Ice","base_spe":55},{"num":882,"name":"Dracovish","type1":"Water","type2":"Dragon","base_spe":75},{"num":883,"name":"Arctovish","type1":"Water","type2":"Ice","base_spe":55},{"num":884,"name":"Duraludon","type1":"Steel","type2":"Dragon","base_spe":85},{"num":885,"name":"Dreepy","type1":"Dragon","type2":"Ghost","base_spe":82},{"num":886,"name":"Drakloak","type1":"Dragon","type2":"Ghost","base_spe":102},{"num":887,"name":"Dragapult","type1":"Dragon","type2":"Ghost","base_spe":142},{"num":888,"name":"Zacian","type1":"Fairy","type2":null,"base_spe":138},{"num":888,"name":"Zacian-Crowned","type1":"Fairy","type2":"Steel","base_spe":148},{"num":889,"name":"Zamazenta","type1":"Fighting","type2":null,"base_spe":138},{"num":889,"name":"Zamazenta-Crowned","type1":"Fighting","type2":"Steel","base_spe":128},{"num":890,"name":"Eternatus","type1":"Poison","type2":"Dragon","base_spe":130},{"num":890,"name":"Eternatus-Eternamax","type1":"Poison","type2":"Dragon","base_spe":130},{"num":891,"name":"Kubfu","type1":"Fighting","type2":null,"base_spe":72},{"num":892,"name":"Urshifu","type1":"Fighting","type2":"Dark","base_spe":97},{"num":892,"name":"Urshifu-Rapid-Strike","type1":"Fighting","type2":"Water","base_spe":97},{"num":893,"name":"Zarude","type1":"Dark","type2":"Grass","base_spe":105},{"num":894,"name":"Regieleki","type1":"Electric","type2":null,"base_spe":200},{"num":895,"name":"Regidrago","type1":"Dragon","type2":null,"base_spe":80},{"num":896,"name":"Glastrier","type1":"Ice","type2":null,"base_spe":30},{"num":897,"name":"Spectrier","type1":"Ghost","type2":null,"base_spe":130},{"num":898,"name":"Calyrex","type1":"Psychic","type2":"Grass","base_spe":80},{"num":898,"name":"Calyrex-Ice","type1":"Psychic","type2":"Ice","base_spe":50},{"num":898,"name":"Calyrex-Shadow","type1":"Psychic","type2":"Ghost","base_spe":150},{"num":899,"name":"Wyrdeer","type1":"Normal","type2":"Psychic","base_spe":65},{"num":900,"name":"Kleavor","type1":"Bug","type2":"Rock","base_spe":85},{"num":901,"name":"Ursaluna","type1":"Ground","type2":"Normal","base_spe":50},{"num":902,"name":"Basculegion","type1":"Water","type2":"Ghost","base_spe":78},{"num":902,"name":"Basculegion-F","type1":"Water","type2":"Ghost","base_spe":78},{"num":903,"name":"Sneasler","type1":"Fighting","type2":"Poison","base_spe":120},{"num":904,"name":"Overqwil","type1":"Dark","type2":"Poison","base_spe":85},{"num":905,"name":"Enamorus","type1":"Fairy","type2":"Flying","base_spe":106},{"num":905,"name":"Enamorus-Therian","type1":"Fairy","type2":"Flying","base_spe":46}];
+
+
+function gen_random_pm_list(l) {
+  let list = [];
+  let max_random = full_pm.length
+  for (let i=0;i<l;i++) {
+    list.push(full_pm[parseInt(Math.random()*max_random)]);
   }
-];
-  
+  return list;
+} 
 
-function FreeSolo() {
-  return (
-    <Stack spacing={2} sx={{ width: 300 }}>
-      <Autocomplete
-        freeSolo
-        id="free-solo-2-demo"
-        disableClearable
-        options={full_pm.map((option) => option.name)}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Search input"
-            InputProps={{
-              ...params.InputProps,
-              type: 'search',
-            }}
-          />
-        )}
-      />
-    </Stack>
-  );
-}
+var start_list = gen_random_pm_list(5);
 
-var vc_clear_all = vega.changeset().remove(function(t) {console.log(t);return true});
-var vc_pick_random = vega.changeset().insert([{
-  "num": 902,
-  "name": "Basculegion-F",
-  "type1": "Water",
-  "type2": "Ghost",
-  "base_spe": 78
-}]);
-
-function Example() {
-  // 声明一个新的叫做 “count” 的 state 变量
-  const [count, setCount] = React.useState(0);
-  return (
-    <div>
-      <button onClick={()=>v1.then((res)=>{res.view.change('filtered_pms', vc_pick_random).run()} )}>Insert</button>
-    </div>
-  );
-}
 
 function DisplayList() {
-  const [dList, setDList] = React.useState([]);
-  const handleRemoveItem = (e) => {
-    console.log(e);
-    const name = e.target.getAttribute("name");
+  const [dList, setDList] = React.useState(start_list.map((option) => option.name));
+  const handleRemoveItem = (name) => {
     setDList(dList.filter(i => i !== name));
    };
 
+   function PMChoose() {
+    const [value, setValue] = React.useState(null);
+    return (
+      <div>
+        <div>{`Press 'Enter' to input value: ${value !== null ? `'${value}'` : 'null'}`}</div>
+        <br />
+        <Autocomplete
+          openOnFocus
+          disableCloseOnSelect
+          autoHighlight
+          value={value}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+          id="pm-choose-input"
+          options={full_pm.map((option) => option.name)}
+          sx={{ width: 300 }}
+          renderInput={(params) => <TextField {...params} label="Search Pokemon" />}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') {
+              // Prevent's default 'Enter' behavior.
+              event.defaultMuiPrevented = true;
+              // your handler code
+              if (value !== null) {
+                console.log(value);
+                setDList(dList=>[...dList, value]);
+                let insertData = vega.changeset().insert(full_pm.find((i)=>{return i.name === value}));
+                v1.then((res)=>{res.view.change('filtered_pms', insertData).run()});
+              }
+            }
+          }}
+        />
+      </div>
+    );
+  }
+  
   return (
     <div>
-      <button onClick={()=> {var vadd=document.getElementById('free-solo-2-demo').value; setDList(dList=>[...dList, vadd]);}}>Add</button>
+      <PMChoose/>
       <ul>
         {dList.map( (e,i) =>
           <li key={i}>{ e } 
-            <button name={e} onClick={handleRemoveItem}>x</button>
+            <button name={e} onClick={ (evt)=> {
+              let name = evt.target.getAttribute("name");
+              handleRemoveItem(name);
+              let removeData = vega.changeset().remove((i)=>{return i.name === name});
+              v1.then((res)=>{res.view.change('filtered_pms', removeData).run()});
+
+            }}>x</button>
           </li>
         )}
       </ul>
-      <button onClick={()=> {}}>Update</button>
+      <button onClick={()=>v1.then((res)=>{
+        let rand5 = gen_random_pm_list(5);
+        let add_val_list = rand5.map((i)=>i.name);
+        setDList(dList=>[...dList, ...add_val_list]);
+        res.view.change('filtered_pms', vega.changeset().insert(rand5)).run();
+        })}>Random Insert 5</button>
       <br/>
-      <button onClick={()=>v1.then((res)=>{res.view.change('filtered_pms', vc_clear_all).run()} )}>Clear All</button>
     </div>
   )
 }
 
-
-function App() {
+function Controller() {
   return (
     <div>
-    <Example/>
-    <FreeSolo/>
-    <DisplayList/>
+      <DisplayList/>
   </div>
   );
 }
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Controller />
   </React.StrictMode>,
   document.getElementById('controller_container')
 );
 
 
-const spec = {
-"config": {"view": {"continuousWidth": 800, "continuousHeight": 400}},
-"transform": [
-  {"calculate": "parseInt(((datum.base_spe*2+0+0/4)*1/2+5)*0.9)", "as": "stats_nnzero"},
-  {"calculate": "parseInt(((datum.base_spe*2+31+0/4)*1/2+5)*0.9)", "as": "stats_nniv"},
-  {"calculate": "parseInt(((datum.base_spe*2+31+0/4)*1/2+5))", "as": "stats_noev"},
-  {"calculate": "parseInt(((datum.base_spe*2+31+252/4)*1/2+5))", "as": "stats_evmax"},
-  {"calculate": "parseInt(((datum.base_spe*2+31+0/4)*1/2+5)*1.1)", "as": "stats_npnoev"},
-  {"calculate": "parseInt(((datum.base_spe*2+31+252/4)*1/2+5)*1.1)", "as": "stats_nmax"},
-  {"calculate": "parseInt(datum.stats_nmax*1.5)", "as": "u1"},
-  {"calculate": "parseInt(datum.stats_nmax*2)", "as": "u2"},
-  {"calculate": "parseInt(datum.stats_noev*2/3)", "as": "d1"},
-  {"calculate": "parseInt(datum.stats_noev/2)", "as": "d2"}
- ],
-"vconcat": [
-{
-  "encoding": {
-    "x": {
-      "axis": {"labelAngle": -35, "title": null},
-      "field": "name",
-      "type": "ordinal",
-      "sort": {"field": "base_spe", "order": "ascending"}
+// Vega part
+function InitVega(pm_list) {
+  //let pm_list = full_pm;
+  const spec = {
+  "config": {"view": {
+    "width": 600,
+    "height": 600,"continuousWidth": 800, "continuousHeight": 400}},
+  "transform": [
+    {"calculate": "parseInt(((datum.base_spe*2+0+0/4)*1/2+5)*0.9)", "as": "stats_nnzero"},
+    {"calculate": "parseInt(((datum.base_spe*2+31+0/4)*1/2+5)*0.9)", "as": "stats_nniv"},
+    {"calculate": "parseInt(((datum.base_spe*2+31+0/4)*1/2+5))", "as": "stats_noev"},
+    {"calculate": "parseInt(((datum.base_spe*2+31+252/4)*1/2+5))", "as": "stats_evmax"},
+    {"calculate": "parseInt(((datum.base_spe*2+31+0/4)*1/2+5)*1.1)", "as": "stats_npnoev"},
+    {"calculate": "parseInt(((datum.base_spe*2+31+252/4)*1/2+5)*1.1)", "as": "stats_nmax"},
+    {"calculate": "parseInt(datum.stats_nmax*1.5)", "as": "u1"},
+    {"calculate": "parseInt(datum.stats_nmax*2)", "as": "u2"},
+    {"calculate": "parseInt(datum.stats_noev*2/3)", "as": "d1"},
+    {"calculate": "parseInt(datum.stats_noev/2)", "as": "d2"}
+  ],
+  "vconcat": [
+  {
+    "encoding": {
+      "x": {
+        "axis": {"labelAngle": -35, "title": null},
+        "field": "name",
+        "type": "ordinal",
+        "sort": {"field": "base_spe", "order": "ascending"}
+      },
+      "tooltip": [
+        {"title": "NAME", "field": "name"},
+        {"title": "BASE", "field": "base_spe"},
+        {"title": "+2", "field": "u2"},
+        {"title": "+1", "field": "u1"},
+        {"title": "max", "field": "stats_nmax"},
+        {"title": "252ev", "field": "stats_evmax"},
+        {"title": "+nature", "field": "stats_npnoev"},
+        {"title": "v", "field": "stats_noev"},
+        {"title": "-nature", "field": "stats_nniv"},
+        {"title": "min", "field": "stats_nnzero"}
+      ]
     },
-    "tooltip": [
-      {"title": "NAME", "field": "name"},
-      {"title": "BASE", "field": "base_spe"},
-      {"title": "+2", "field": "u2"},
-      {"title": "+1", "field": "u1"},
-      {"title": "max", "field": "stats_nmax"},
-      {"title": "252ev", "field": "stats_evmax"},
-      {"title": "+nature", "field": "stats_npnoev"},
-      {"title": "v", "field": "stats_noev"},
-      {"title": "-nature", "field": "stats_nniv"},
-      {"title": "min", "field": "stats_nnzero"}
+    "layer": [
+      {
+        "mark": {"type": "bar", "width": {"band": 0.9}},
+        "encoding": {
+          "color": {"value": "#40ff40"},
+          "y": {
+            "field": "stats_npnoev",
+            "axis": {"title": "Stats", "grid": true, "titleColor": "#4c78a8"},
+            "type": "quantitative"
+          },
+          "y2": {"field": "stats_nmax"}
+        }
+      },
+      {
+        "mark": {"type": "bar", "width": {"band": 0.6}},
+        "encoding": {
+          "color": {"value": "#f32030"},
+          "y": {"field": "stats_nnzero", "type": "quantitative"},
+          "y2": {"field": "stats_nniv"}
+        }
+      },
+      {
+        "mark": {"type": "bar", "width": {"band": 0.6}},
+        "encoding": {
+          "color": {"value": "#4c78a8"},
+          "opacity": {"value": 0.8},
+          "y": {"field": "stats_noev", "type": "quantitative"},
+          "y2": {"field": "stats_evmax"}
+        }
+      },
+      {
+        "mark": "tick",
+        "encoding": {
+          "color": {"value": "#40ff40"},
+          "y": {"field": "stats_npnoev", "type": "quantitative"}
+        }
+      },
+    
+      {
+        "mark": {"type":"point", "shape":"triangle-up","strokeWidth":1.5, "size":50}, 
+        "encoding": {
+          "y": {"field": "u1", "type": "quantitative"}
+        }
+      },
+      {
+        "mark": {
+          "type": "line",
+          "interpolate": "linear",
+          "stroke": "black",
+          "strokeWidth": 1.2
+        },
+        "encoding": {
+          "color": {"value": "#a01afa"},
+          "y": {"field": "base_spe", "type": "quantitative"}
+        }
+      }
     ]
   },
-  "layer": [
-    {
-      "mark": {"type": "bar", "width": {"band": 0.9}},
-      "encoding": {
-        "color": {"value": "#40ff40"},
-        "y": {
-          "field": "stats_npnoev",
-          "axis": {"title": "Stats", "grid": true, "titleColor": "#4c78a8"},
-          "type": "quantitative"
-        },
-        "y2": {"field": "stats_nmax"}
+  {
+    "height": 40,
+    "encoding": {
+      "x": {
+        "axis": {"labelAngle": -25, "title": "Num"},
+        "field": "num",
+        "type": "ordinal",
+        "sort": {"field": "base_spe", "order": "ascending"}
       }
     },
-    {
-      "mark": {"type": "bar", "width": {"band": 0.6}},
-      "encoding": {
-        "color": {"value": "#f32030"},
-        "y": {"field": "stats_nnzero", "type": "quantitative"},
-        "y2": {"field": "stats_nniv"}
-      }
-    },
-    {
-      "mark": {"type": "bar", "width": {"band": 0.6}},
-      "encoding": {
-        "color": {"value": "#4c78a8"},
-        "opacity": {"value": 0.8},
-        "y": {"field": "stats_noev", "type": "quantitative"},
-        "y2": {"field": "stats_evmax"}
-      }
-    },
-    {
-      "mark": "tick",
-      "encoding": {
-        "color": {"value": "#40ff40"},
-        "y": {"field": "stats_npnoev", "type": "quantitative"}
-      }
-    },
-   
-    {
-      "mark": {"type":"point", "shape":"triangle-up","strokeWidth":1.5, "size":50}, 
-      "encoding": {
-        "y": {"field": "u1", "type": "quantitative"}
-      }
-    },
-    {
-      "mark": {
-        "type": "line",
-        "interpolate": "linear",
-        "stroke": "black",
-        "strokeWidth": 1.2
+    "layer": [
+      {
+        "mark": {"type": "rect", "stroke": "black", "strokeWidth": 0.7},
+        "encoding": {
+          "color": {
+            "field": "type1",
+            "scale": {
+              "range": [
+                "#91C02E",
+                "#5A5365",
+                "#0A6DC2",
+                "#F4D23C",
+                "#EB8FE6",
+                "#CD406A",
+                "#FE9C54",
+                "#8EA8DE",
+                "#62BB5A",
+                "#62BB5A",
+                "#D87844",
+                "#73CEBF",
+                "#9199A1",
+                "#44685E",
+                "#A96AC8",
+                "#F97178",
+                "#C5B78B",
+                "#5A8DA1",
+                "#4F90D5"
+              ]
+            }
+          },
+          "y": {"value": 0},
+          "y2": {"value": 20}
+        }
       },
-      "encoding": {
-        "color": {"value": "#a01afa"},
-        "y": {"field": "base_spe", "type": "quantitative"}
+      {
+        "mark": {"type": "rect", "stroke": "black", "strokeWidth": 0.7},
+        "transform": [{"filter": "isValid(datum.type2)"}],
+        "encoding": {
+          "color": {"field": "type2"},
+          "y": {"value": 20},
+          "y2": {"value": 40}
+        }
       }
-    }
-  ]
-},
-{
-  "height": 40,
-  "encoding": {
-    "x": {
-      "axis": {"labelAngle": -25, "title": "Num"},
-      "field": "num",
-      "type": "ordinal",
-      "sort": {"field": "base_spe", "order": "ascending"}
-    }
-  },
-  "layer": [
-    {
-      "mark": {"type": "rect", "stroke": "black", "strokeWidth": 0.7},
-      "encoding": {
-        "color": {
-          "field": "type1",
-          "scale": {
-            "range": [
-              "#91C02E",
-              "#5A5365",
-              "#0A6DC2",
-              "#F4D23C",
-              "#EB8FE6",
-              "#CD406A",
-              "#FE9C54",
-              "#8EA8DE",
-              "#62BB5A",
-              "#62BB5A",
-              "#D87844",
-              "#73CEBF",
-              "#9199A1",
-              "#44685E",
-              "#A96AC8",
-              "#F97178",
-              "#C5B78B",
-              "#5A8DA1",
-              "#4F90D5"
-            ]
-          }
-        },
-        "y": {"value": 0},
-        "y2": {"value": 20}
-      }
-    },
-    {
-      "mark": {"type": "rect", "stroke": "black", "strokeWidth": 0.7},
-      "transform": [{"filter": "isValid(datum.type2)"}],
-      "encoding": {
-        "color": {"field": "type2"},
-        "y": {"value": 20},
-        "y2": {"value": 40}
-      }
-    }
-  ]
+    ]
+  }
+  ],
+  "data": {"name": "filtered_pms"},
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.2.0.json",
+  "datasets": {
+  "filtered_pms": pm_list
+  }
+  };
+  return embed('#vis', spec);
 }
-],
-"data": {"name": "filtered_pms"},
-"$schema": "https://vega.github.io/schema/vega-lite/v5.2.0.json",
-"datasets": {
-"filtered_pms": full_pm
-}
-};
 
-var v1 = embed('#vis', spec);
-//var v1 = vegaEmbed("#vis", spec, {mode: "vega-lite"}).then().catch(console.warn);
+var v1 = InitVega(start_list);
