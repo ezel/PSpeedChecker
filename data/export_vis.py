@@ -2,7 +2,7 @@ import json
 import numpy as np
 import pandas as pd
 import altair as alt
-
+from bs4 import BeautifulSoup as bs
 
 def init_base(src):
     # init data
@@ -39,6 +39,25 @@ def init_draw_test(size=20):
     return df
 
 
+def soup_pdex(filepath='pdex_result_div'):
+    f = open(filepath)
+    soup = bs(f.read(), 'lxml')
+    all_li_res = soup.find_all('li','result')
+    myf = []
+    for li_res in all_li_res:
+        x = li_res.find('a')
+        if x != None:
+            cf = []
+            d1 = x.attrs['data-entry']
+            cf.extend(d1.split('|'))
+            d2 = x.find('span',attrs='').attrs['style']
+            cf.append(d2)
+            cf.extend(d2.split(' '))
+            myf.append(cf)
+    df = pd.DataFrame(myf, columns=['d_type','d_name','bg','bg_type','bg_url','bg_repeat','bg_scroll','bg_left','bg_top'])
+    return df
+
+    
 def draw(data):
     source2 = data
     mybase = alt.Chart(source2).encode(
