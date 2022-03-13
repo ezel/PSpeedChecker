@@ -16,11 +16,14 @@ function gen_random_pm_list(l) {
   return list;
 } 
 
-var start_list = gen_random_pm_list(5);
-
+//var start_list = gen_random_pm_list(5);
+var start_name_list = ["Zacian-Crowned","Incineroar","Kyogre","Regieleki","Grimmsnarl","Thundurus","Rillaboom","Groudon","Calyrex-Shadow","Amoonguss","Whimsicott","Calyrex-Ice","Landorus-Therian","Charizard","Gastrodon","Zapdos","Indeedee-F","Venusaur","Yveltal","Palkia","Urshifu","Porygon2","Tornadus","Ditto","Dialga","Ferrothorn","Dusclops","Solgaleo","Blastoise","Kartana","Seismitoad","Mimikyu","Kyurem-White","Kingdra","Urshifu-Rapid-Strike","Shedinja","Raichu","Torkoal","Ho-Oh","Cinderace","Lapras"]
+var start_list = full_pm.filter((i)=>{return start_name_list.includes(i.name)});
+console.log(start_list);
 
 function DisplayList() {
-  const [dList, setDList] = React.useState(start_list.map((option) => option.name));
+  //const [dList, setDList] = React.useState(start_list.map((option) => option.name));
+  const [dList, setDList] = React.useState(start_name_list);
   const handleRemoveItem = (name) => {
     setDList(dList.filter(i => i !== name));
    };
@@ -207,11 +210,16 @@ function InitVega(pm_list) {
     "height": 40,
     "encoding": {
       "x": {
-        "axis": {"labelAngle": -25, "title": "Num"},
-        "field": "num",
+        "axis": null,
+        "field": "name",
         "type": "ordinal",
         "sort": {"field": "base_spe", "order": "ascending"}
-      }
+      },
+      "tooltip": [
+        {"title": "NAME", "field": "name"},
+        {"title": "Type1", "field": "type1"},
+        {"title": "Type2", "field": "type2"}
+      ]
     },
     "layer": [
       {
@@ -220,7 +228,7 @@ function InitVega(pm_list) {
           "color": {
             "field": "type1",
             "legend": {"title": "Type"},
-            "scale": {"domain": ["Bug", "Dark", "Dragon", "Electric", "Fairy", "Fighting", "Fire", "Fly", "Ghost", "Grass", "Ground", "Ice", "Normal", "Other", "Poison", "Psychic", "Rock", "Steel", "Water"], "range": ["#91C02E", "#5A5365", "#0A6DC2", "#F4D23C", "#EB8FE6", "#CD406A", "#FE9C54", "#8EA8DE", "#5269AC", "#62BB5A", "#D87844", "#73CEBF", "#9199A1", "#44685E", "#A96AC8", "#F97178", "#C5B78B", "#5A8DA1", "#4F90D5"]}
+            "scale": {"domain": ["Bug", "Dark", "Dragon", "Electric", "Fairy", "Fighting", "Fire", "Flying", "Ghost", "Grass", "Ground", "Ice", "Normal", "Other", "Poison", "Psychic", "Rock", "Steel", "Water"], "range": ["#91C02E", "#5A5365", "#0A6DC2", "#F4D23C", "#EB8FE6", "#CD406A", "#FE9C54", "#8EA8DE", "#5269AC", "#62BB5A", "#D87844", "#73CEBF", "#9199A1", "#44685E", "#A96AC8", "#F97178", "#C5B78B", "#5A8DA1", "#4F90D5"]}
           },
           "y": {"value": 0},
           "y2": {"value": 20}
