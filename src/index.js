@@ -6,45 +6,43 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { full_bg, full_pm } from './data';
 
-function gen_random_pm_list(l) {
-  let list = [];
-  let max_random = full_pm.length
-  for (let i = 0; i < l; i++) {
-    list.push(full_pm[parseInt(Math.random() * max_random)]);
-  }
-  return list;
-}
-
-//var start_list = gen_random_pm_list(5);
 var start_name_list = ["Zacian-Crowned", "Incineroar", "Kyogre", "Regieleki", "Grimmsnarl", "Thundurus", "Rillaboom", "Groudon", "Calyrex-Shadow", "Amoonguss", "Whimsicott", "Calyrex-Ice", "Landorus-Therian", "Charizard", "Gastrodon", "Zapdos", "Indeedee-F", "Venusaur", "Yveltal", "Palkia", "Urshifu", "Porygon2", "Tornadus", "Ditto", "Dialga", "Ferrothorn", "Dusclops", "Solgaleo", "Blastoise", "Kartana", "Seismitoad", "Mimikyu", "Kyurem-White", "Kingdra", "Urshifu-Rapid-Strike", "Shedinja", "Raichu", "Torkoal", "Ho-Oh", "Cinderace", "Lapras"]
-var start_list = full_pm.filter((i) => { return start_name_list.includes(i.name) });
 
-var style_for_name = function (pmname, valign = 'bottom') {
-  let default_style = {
-    display: 'inline-block',
-    width: '40px',
-    height: '30px',
-    'verticalAlign': valign,
-    'backgroundColor': 'transparent',
-    'backgroundImage': 'url(pokemonicons-sheet.png)',
-    'backgroundRepeat': 'no-repeat',
-    'backgroundAttachment': 'scroll',
-    'backgroundPositionX': '0px',
-    'backgroundPositionY': '0px'
-  };
-  let target = full_bg.find((i) => i.d_name === pmname);
-  if (target) {
-    default_style['backgroundPositionX'] = target['bg_left'];
-    default_style['backgroundPositionY'] = target['bg_top'];
-  }
-  return default_style
-};
-
-function DisplayList({ vegaObj }) {
+function DisplayList({ vegaObj, pmNames }) {
   //const [dList, setDList] = React.useState(start_list.map((option) => option.name));
-  const [dList, setDList] = React.useState(start_name_list);
+  const [dList, setDList] = React.useState(pmNames);
   const handleRemoveItem = (name) => {
     setDList(dList.filter(i => i !== name));
+  };
+
+  function gen_random_pm_list(l) {
+    let list = [];
+    let max_random = full_pm.length
+    for (let i = 0; i < l; i++) {
+      list.push(full_pm[parseInt(Math.random() * max_random)]);
+    }
+    return list;
+  }
+  
+  function style_for_name(pmname, valign = 'bottom') {
+    let default_style = {
+      display: 'inline-block',
+      width: '40px',
+      height: '30px',
+      'verticalAlign': valign,
+      'backgroundColor': 'transparent',
+      'backgroundImage': 'url(pokemonicons-sheet.png)',
+      'backgroundRepeat': 'no-repeat',
+      'backgroundAttachment': 'scroll',
+      'backgroundPositionX': '0px',
+      'backgroundPositionY': '0px'
+    };
+    let target = full_bg.find((i) => i.d_name === pmname);
+    if (target) {
+      default_style['backgroundPositionX'] = target['bg_left'];
+      default_style['backgroundPositionY'] = target['bg_top'];
+    }
+    return default_style;
   };
 
   function PMChoose() {
@@ -116,29 +114,30 @@ function DisplayList({ vegaObj }) {
   )
 }
 
-function Controller() {
-  var v1 = InitVega(start_list);
+function SpeedViewerMain({ initPMNames }) {
+  var start_list = full_pm.filter((i) => { return initPMNames.includes(i.name) });
+  var v1 = InitVega(start_list, 'vis');
   return (
     <div>
-      <div id="controller_container" style={{ float: 'left', width: '320px' }} >
-        <DisplayList vegaObj={v1} />
+      <div style={{ float: 'left', width: '320px' }} >
+        <DisplayList vegaObj={v1} pmNames={initPMNames} />
       </div>
-      <div id="vis" style={{ maxWidth: '700px' }}></div>
+      <div id="vis" style={{ minWidth: '700px' }}></div>
     </div>
   );
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
 root.render(
   <React.StrictMode>
-    <Controller />
+    <SpeedViewerMain initPMNames={start_name_list} />
   </React.StrictMode>
 );
 
 
 // Vega part
-function InitVega(pm_list) {
+// init the spec, then call the vega.embed
+function InitVega(pmList, visDivID) {
   //let pm_list = full_pm;
   const spec = {
     "config": {
@@ -282,8 +281,8 @@ function InitVega(pm_list) {
     "data": { "name": "filtered_pms" },
     "$schema": "https://vega.github.io/schema/vega-lite/v5.2.0.json",
     "datasets": {
-      "filtered_pms": pm_list
+      "filtered_pms": pmList
     }
   };
-  return embed('#vis', spec);
+  return embed(`#${visDivID}`, spec);
 }
