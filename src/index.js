@@ -18,6 +18,7 @@ function gen_random_pm_list(l) {
 //var start_list = gen_random_pm_list(5);
 var start_name_list = ["Zacian-Crowned","Incineroar","Kyogre","Regieleki","Grimmsnarl","Thundurus","Rillaboom","Groudon","Calyrex-Shadow","Amoonguss","Whimsicott","Calyrex-Ice","Landorus-Therian","Charizard","Gastrodon","Zapdos","Indeedee-F","Venusaur","Yveltal","Palkia","Urshifu","Porygon2","Tornadus","Ditto","Dialga","Ferrothorn","Dusclops","Solgaleo","Blastoise","Kartana","Seismitoad","Mimikyu","Kyurem-White","Kingdra","Urshifu-Rapid-Strike","Shedinja","Raichu","Torkoal","Ho-Oh","Cinderace","Lapras"]
 var start_list = full_pm.filter((i)=>{return start_name_list.includes(i.name)});
+var v1 = InitVega(start_list);
 
 var style_for_name = function(pmname, valign='bottom') {
   let default_style = {
@@ -117,18 +118,28 @@ function DisplayList() {
 }
 
 function Controller() {
+  React.useEffect(() => {
+    // 这里是要在组件渲染完成后执行的函数
+    console.log('组件渲染完成');
+  }, []);
+
   return (
     <div>
-      <DisplayList/>
+        <div id="controller_container" style={{float:'left', width:'320px'}} >
+        <DisplayList/>
+        </div>
+        <div id="vis" style={{ maxWidth: '700px' }}></div>
   </div>
   );
 }
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
 ReactDOM.render(
   <React.StrictMode>
     <Controller />
   </React.StrictMode>,
-  document.getElementById('controller_container')
+  document.getElementById('root')
 );
 
 
@@ -279,5 +290,3 @@ function InitVega(pm_list) {
   };
   return embed('#vis', spec);
 }
-
-var v1 = InitVega(start_list);
