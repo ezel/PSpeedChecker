@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import embed, { vega } from 'vega-embed';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -18,7 +18,6 @@ function gen_random_pm_list(l) {
 //var start_list = gen_random_pm_list(5);
 var start_name_list = ["Zacian-Crowned","Incineroar","Kyogre","Regieleki","Grimmsnarl","Thundurus","Rillaboom","Groudon","Calyrex-Shadow","Amoonguss","Whimsicott","Calyrex-Ice","Landorus-Therian","Charizard","Gastrodon","Zapdos","Indeedee-F","Venusaur","Yveltal","Palkia","Urshifu","Porygon2","Tornadus","Ditto","Dialga","Ferrothorn","Dusclops","Solgaleo","Blastoise","Kartana","Seismitoad","Mimikyu","Kyurem-White","Kingdra","Urshifu-Rapid-Strike","Shedinja","Raichu","Torkoal","Ho-Oh","Cinderace","Lapras"]
 var start_list = full_pm.filter((i)=>{return start_name_list.includes(i.name)});
-var v1 = InitVega(start_list);
 
 var style_for_name = function(pmname, valign='bottom') {
   let default_style = {
@@ -41,7 +40,7 @@ var style_for_name = function(pmname, valign='bottom') {
   return default_style
 };
 
-function DisplayList() {
+function DisplayList({ vegaObj }) {
   //const [dList, setDList] = React.useState(start_list.map((option) => option.name));
   const [dList, setDList] = React.useState(start_name_list);
   const handleRemoveItem = (name) => {
@@ -80,7 +79,7 @@ function DisplayList() {
               if (value !== null) {
                 setDList(dList=>[...dList, value]);
                 let insertData = vega.changeset().insert(full_pm.find((i)=>{return i.name === value}));
-                v1.then((res)=>{res.view.change('filtered_pms', insertData).run()});
+                vegaObj.then((res)=>{res.view.change('filtered_pms', insertData).run()});
               }
             }
           }}
@@ -99,14 +98,14 @@ function DisplayList() {
               let name = evt.target.getAttribute("name");
               handleRemoveItem(name);
               let removeData = vega.changeset().remove((i)=>{return i.name === name});
-              v1.then((res)=>{res.view.change('filtered_pms', removeData).run()});
+              vegaObj.then((res)=>{res.view.change('filtered_pms', removeData).run()});
             }}>x</button> 
             { e }
             <span style={style_for_name(e)}></span>
           </li>
         )}
       </ul>
-      <button onClick={()=>v1.then((res)=>{
+      <button onClick={()=>vegaObj.then((res)=>{
         let rand5 = gen_random_pm_list(5);
         let add_val_list = rand5.map((i)=>i.name);
         setDList(dList=>[...dList, ...add_val_list]);
@@ -118,15 +117,11 @@ function DisplayList() {
 }
 
 function Controller() {
-  React.useEffect(() => {
-    // 这里是要在组件渲染完成后执行的函数
-    console.log('组件渲染完成');
-  }, []);
-
+    var v1 = InitVega(start_list);
   return (
     <div>
         <div id="controller_container" style={{float:'left', width:'320px'}} >
-        <DisplayList/>
+        <DisplayList vegaObj={v1}/>
         </div>
         <div id="vis" style={{ maxWidth: '700px' }}></div>
   </div>
@@ -135,11 +130,10 @@ function Controller() {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-ReactDOM.render(
+root.render(
   <React.StrictMode>
     <Controller />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
 
 
