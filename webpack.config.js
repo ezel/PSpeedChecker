@@ -4,7 +4,7 @@ module.exports = {
   entry: './src/speedviewer.jsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'psv.lib.js',
+    filename: 'psv.lib.jsx',
     libraryTarget: 'module',
     clean: true,
   },
