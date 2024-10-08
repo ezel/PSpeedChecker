@@ -5,13 +5,15 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import embed, { vega } from 'vega-embed';
 import { full_bg, full_pm } from './data';
+import iconsSheet from './assets/pokemonicons-sheet.png';
+import styles from './speedviewer.module.css';
 
 export default function SpeedViewer({ initPMNames }) {
     var start_list = full_pm.filter((i) => { return initPMNames.includes(i.name) });
     var v1 = InitVega(start_list, 'vis');
     return (
         <div>
-            <div style={{ float: 'left', width: '320px' }} >
+            <div style={{ float: 'left', width: '360px' }} >
                 <DisplayList vegaObj={v1} pmNames={initPMNames} />
             </div>
             <div id="vis" style={{ minWidth: '700px' }}></div>
@@ -36,20 +38,20 @@ function DisplayList({ vegaObj, pmNames }) {
         return list;
     }
 
-    function style_for_name(pmname, valign = 'bottom') {
+    function style_for_name(pmName, vAlign = 'bottom') {
         let default_style = {
             display: 'inline-block',
             width: '40px',
             height: '30px',
-            'verticalAlign': valign,
+            //'verticalAlign': vAlign,
             'backgroundColor': 'transparent',
-            'backgroundImage': 'url(pokemonicons-sheet.png)',
+            'backgroundImage': `url(${iconsSheet})`,
             'backgroundRepeat': 'no-repeat',
             'backgroundAttachment': 'scroll',
             'backgroundPositionX': '0px',
             'backgroundPositionY': '0px'
         };
-        let target = full_bg.find((i) => i.d_name === pmname);
+        let target = full_bg.find((i) => i.d_name === pmName);
         if (target) {
             default_style['backgroundPositionX'] = target['bg_left'];
             default_style['backgroundPositionY'] = target['bg_top'];
@@ -57,12 +59,12 @@ function DisplayList({ vegaObj, pmNames }) {
         return default_style;
     };
 
-    function PMChoose() {
+    function PMChooser() {
         const [value, setValue] = React.useState(null);
         return (
             <div>
-                <div>{`Press 'Enter' to input value: ${value !== null ? `'${value}'` : 'null'}`}</div>
-                <br />
+                <div>{ value !== null ? `Press 'Enter' to insert Pokemon: ${value}` : 'Choose a Pokemon from list:'}</div>
+                <br/>
                 <Autocomplete
                     openOnFocus
                     disableCloseOnSelect
@@ -100,8 +102,14 @@ function DisplayList({ vegaObj, pmNames }) {
 
     return (
         <div>
-            <PMChoose />
-            <ul>
+            <PMChooser />
+            <button onClick={() => vegaObj.then((res) => {
+                let rand5 = gen_random_pm_list(5);
+                let add_val_list = rand5.map((i) => i.name);
+                setDList(dList => [...dList, ...add_val_list]);
+                res.view.change('filtered_pms', vega.changeset().insert(rand5)).run();
+            })}>Random Insert 5</button>
+            <ul className={styles.pmlists}>
                 {dList.map((e, i) =>
                     <li key={i}>
                         <button name={e} onClick={(evt) => {
@@ -115,12 +123,6 @@ function DisplayList({ vegaObj, pmNames }) {
                     </li>
                 )}
             </ul>
-            <button onClick={() => vegaObj.then((res) => {
-                let rand5 = gen_random_pm_list(5);
-                let add_val_list = rand5.map((i) => i.name);
-                setDList(dList => [...dList, ...add_val_list]);
-                res.view.change('filtered_pms', vega.changeset().insert(rand5)).run();
-            })}>Random Insert 5</button>
             <br />
         </div>
     )

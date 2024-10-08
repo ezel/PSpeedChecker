@@ -1,0 +1,20 @@
+.pmlists {
+  font-size: 12px;
+  list-style-type: none;
+  padding-inline-start: 4px;
+}
+
+.pmlists li {
+  display: inline-block;
+  border: solid 1px black;
+  margin: 1px 1px;
+}
+
+.pmlists li span {
+  vertical-align: middle;
+}
+.pmlists li button {
+  color: red;
+  padding: 0px 2px;
+  margin: 0px 2px;
+}
