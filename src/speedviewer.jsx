@@ -61,6 +61,15 @@ function DisplayList({ vegaObj, pmNames }) {
 
     function PMChooser() {
         const [value, setValue] = React.useState(null);
+
+        function handleClick() {
+            if (value !== null) {
+                setDList(dList => [...dList, value]);
+                let insertData = vega.changeset().insert(full_pm.find((i) => { return i.name === value }));
+                vegaObj.then((res) => { res.view.change('filtered_pms', insertData).run() });
+            }
+        }
+
         return (
             <div>
                 <div>{ value !== null ? `Press 'Enter' to insert Pokemon: ${value}` : 'Choose a Pokemon from list:'}</div>
@@ -69,15 +78,14 @@ function DisplayList({ vegaObj, pmNames }) {
                     openOnFocus
                     disableCloseOnSelect
                     autoHighlight
-                    value={value}
-                    onChange={(event, newValue) => {
-                        setValue(newValue);
-                    }}
+                    //value={value}
+                    onChange={(_, newValue) => {setValue(newValue);}}
                     id="pm-choose-input"
                     options={full_pm.map((option) => option.name)}
                     sx={{ width: 300 }}
-                    renderOption={(props, option) => (
-                        <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                    renderOption={(props, option) =>(
+                        <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}
+                            onDoubleClick={handleClick} >
                             <span style={style_for_name(option, 'baseline')}></span>
                             {option}
                         </Box>
@@ -88,11 +96,7 @@ function DisplayList({ vegaObj, pmNames }) {
                             // Prevent's default 'Enter' behavior.
                             event.defaultMuiPrevented = true;
                             // your handler code
-                            if (value !== null) {
-                                setDList(dList => [...dList, value]);
-                                let insertData = vega.changeset().insert(full_pm.find((i) => { return i.name === value }));
-                                vegaObj.then((res) => { res.view.change('filtered_pms', insertData).run() });
-                            }
+                            handleClick();
                         }
                     }}
                 />
